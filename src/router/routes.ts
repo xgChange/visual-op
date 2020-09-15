@@ -1,11 +1,20 @@
 import { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import MyLayout from '../layout/index.vue'
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: MyLayout,
+    meta: {
+      title: '首页'
+    },
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: () => import('../views/Home.vue')
+      }
+    ]
   }
 ]
 
