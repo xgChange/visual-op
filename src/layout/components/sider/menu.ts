@@ -35,11 +35,19 @@ const menuData: MenuItem[] = [
       {
         id: 4,
         key: 'testMenu-sub-1',
-        content: '测试子菜单',
-        hasIcon: false
+        content: '测试递归子菜单',
+        hasIcon: false,
+        childrens: [
+          {
+            id: 5,
+            key: 'testMenu-sub-2',
+            content: '测试递归子子菜单',
+            hasIcon: false
+          }
+        ]
       }
     ]
   }
 ]
 
-export default menuData
+export { menuData, MenuItem }

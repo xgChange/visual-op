@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import MyHeader from './components/header.vue'
-import MySider from './components/sider.vue'
+import MyHeader from './components/header/header.vue'
+import MySider from './components/sider/sider.vue'
 
 @Component({
   components: {

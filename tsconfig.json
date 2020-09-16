@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/layout/components/menu.ts"  ],
+, "src/layout/components/sider/menu.ts"  ],
   "exclude": [
     "node_modules"
   ]
