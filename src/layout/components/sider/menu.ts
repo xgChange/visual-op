@@ -14,7 +14,7 @@ interface MenuItem {
 const menuData: MenuItem[] = [
   {
     id: 1,
-    key: 'home',
+    key: '/',
     hasIcon: false,
     content: '首页'
   },
