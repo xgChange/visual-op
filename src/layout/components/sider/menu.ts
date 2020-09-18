@@ -15,8 +15,9 @@ const menuData: MenuItem[] = [
   {
     id: 1,
     key: '/',
-    hasIcon: false,
-    content: '首页'
+    hasIcon: true,
+    content: '首页',
+    iconType: 'bank'
   },
   {
     id: 2,

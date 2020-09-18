@@ -9,7 +9,11 @@ import { Vue, Component } from 'vue-property-decorator'
 @Component({
   components: {}
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  mounted() {
+    console.log('dd')
+  }
+}
 </script>
 
 <style></style>

@@ -5,6 +5,13 @@ import store from './store'
 import './plugins/ant-design/index'
 import './assets/styles/global.scss'
 
+// mock接口
+import './mock'
+
+// axios
+import Axios from 'axios'
+Vue.prototype.$Axios = Axios
+console.log(Vue.prototype)
 Vue.config.productionTip = false
 
 new Vue({
