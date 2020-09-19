@@ -1,17 +1,25 @@
 <template>
   <div>
     这是home
+    <button @click="handle">点击</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { UserModule } from '@/store/modules/user'
+
 @Component({
   components: {}
 })
 export default class Home extends Vue {
-  mounted() {
-    console.log('dd')
+  get userInfo() {
+    return UserModule.userInfo
+  }
+
+  async handle() {
+    await UserModule.Login({ userName: 'xmx', password: 'dasd12' })
+    console.log(UserModule.userInfo, 'asddd')
   }
 }
 </script>

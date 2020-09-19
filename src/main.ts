@@ -11,7 +11,6 @@ import './mock'
 // axios
 import Axios from 'axios'
 Vue.prototype.$Axios = Axios
-console.log(Vue.prototype)
 Vue.config.productionTip = false
 
 new Vue({
