@@ -24,10 +24,13 @@ httpService.interceptors.request.use(
 
 httpService.interceptors.response.use(
   (res: AxiosResponse) => {
-    // const { code } = res.data
-    // if (code === 200) {
-    //   return res
-    // }
+    const { code, msg } = res.data
+    if (code >= 10000) {
+      return Promise.reject({
+        status: code,
+        message: msg
+      })
+    }
     return res
     // 做一些错误处理
   },

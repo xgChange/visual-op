@@ -28,9 +28,12 @@ class User extends VuexModule implements MyUserState {
 
   @Action
   async Login(userInfo: UserInfo) {
-    // const {userName, password} = userInfo
-    const info = await UserApi.login(userInfo)
-    console.log('登录返回的', info)
+    try {
+      const info = await UserApi.login(userInfo)
+    } catch (error) {
+      console.log(error)
+    }
+    // return info
     // this.SET_USERINFO(userInfo)
   }
 
