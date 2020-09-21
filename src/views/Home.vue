@@ -19,7 +19,7 @@ export default class Home extends Vue {
 
   async handle() {
     await UserModule.Login({ userName: 'xmx', password: 'dasd12' })
-    console.log(UserModule.userInfo, 'asddd')
+    // console.log(UserModule.userInfo, 'asddd')
   }
 }
 </script>
