@@ -3,22 +3,22 @@
  */
 import { Module, VuexModule, Action, Mutation, getModule } from 'vuex-module-decorators'
 import store from '../index'
-import { UserInfo, LoginResponseData } from '@/utils/interface'
+import { FormUserInfo, LoginResponseData, UserData } from '@/utils/interface'
 import { UserApi } from '@/api/index'
 import { message as Message } from 'ant-design-vue'
 
 export interface MyUserState {
-  userInfo: UserInfo
+  userInfo: UserData
   token: string
 }
 
 @Module({ name: 'user', store, dynamic: true, namespaced: true })
 class User extends VuexModule implements MyUserState {
-  token = ''
-  userInfo = { userName: '', password: '' }
+  token = localStorage.getItem('mytoken') as string
+  userInfo = {} as UserData
 
   @Mutation
-  private SET_USERINFO(userInfo: UserInfo) {
+  private SET_USERINFO(userInfo: UserData) {
     this.userInfo = userInfo
   }
 
@@ -28,7 +28,7 @@ class User extends VuexModule implements MyUserState {
   }
 
   @Action
-  async Login(userInfo: UserInfo) {
+  async Login(userInfo: FormUserInfo) {
     try {
       const info = await UserApi.login<LoginResponseData>(userInfo)
       const { token } = info.data.result
@@ -43,8 +43,14 @@ class User extends VuexModule implements MyUserState {
   }
 
   @Action
-  async getUserInfo(token: string) {
+  async getUserInfo() {
     // 处理获取用户信息
+    try {
+      const info = await UserApi.getUserInfo<UserData>(this.token)
+      // this.SET_USERINFO(info.data.result)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

@@ -8,6 +8,9 @@ import './assets/styles/global.scss'
 // mock接口
 import './mock'
 
+// 权限控制
+import './permission.ts'
+
 // axios
 import Axios from 'axios'
 Vue.prototype.$Axios = Axios

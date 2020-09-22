@@ -18,7 +18,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 import MyForm from './components/form.vue'
-import { UserInfo } from '@/utils/interface/index'
+import { FormUserInfo } from '@/utils/interface/index'
 
 @Component({
   components: {
@@ -28,7 +28,7 @@ import { UserInfo } from '@/utils/interface/index'
 export default class Login extends Vue {
   private isLoading = false
 
-  async submit(data: UserInfo | boolean) {
+  async submit(data: FormUserInfo | boolean) {
     if (typeof data !== 'boolean' && data) {
       this.isLoading = true
       const result = await UserModule.Login(data)

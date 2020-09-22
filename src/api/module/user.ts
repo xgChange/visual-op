@@ -3,12 +3,21 @@
  */
 
 import Axios from '@/utils/request'
-import { UserInfo, ResponseData } from '@/utils/interface/index'
+import { FormUserInfo, ResponseData } from '@/utils/interface/index'
 
-const login = <T>(data: UserInfo) => {
+const login = <T>(data: FormUserInfo) => {
   return Axios.post<ResponseData<T>>('/user/login', data)
 }
 
+const getUserInfo = <T>(token: string) => {
+  return Axios.get<ResponseData<T>>('/user/getInfo', {
+    params: {
+      token
+    }
+  })
+}
+
 export default {
-  login
+  login,
+  getUserInfo
 }

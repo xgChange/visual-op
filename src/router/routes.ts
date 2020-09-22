@@ -1,7 +1,11 @@
 import { RouteConfig } from 'vue-router'
 import MyLayout from '../layout/index.vue'
+import UserRoute from './module/user'
+import TestRoute from './module/test'
+import VisualRoute from './module/visual'
 
-const routes: Array<RouteConfig> = [
+// 无权限路由
+export const constantRoutes: Array<RouteConfig> = [
   {
     path: '/',
     component: MyLayout,
@@ -26,4 +30,5 @@ const routes: Array<RouteConfig> = [
   }
 ]
 
-export default routes
+// 异步加载路由
+export const asyncRoutes: Array<RouteConfig> = [UserRoute, TestRoute, VisualRoute]

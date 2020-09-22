@@ -1,7 +1,7 @@
 /**
  * @description user接口
  */
-import { UserInfo, ResponseData, LoginResponseData } from '@/utils/interface/index'
+import { FormUserInfo, ResponseData, LoginResponseData } from '@/utils/interface/index'
 
 const user = {
   userName: 'admin',
@@ -9,7 +9,7 @@ const user = {
 }
 
 export const login = (d: { body: string }) => {
-  const bodyData: UserInfo = JSON.parse(d.body)
+  const bodyData: FormUserInfo = JSON.parse(d.body)
   const { userName, password } = bodyData
   let res: ResponseData<LoginResponseData>
   if (userName !== user.userName) {
@@ -34,4 +34,10 @@ export const login = (d: { body: string }) => {
     }
   }
   return res
+}
+
+export const getUserInfo = (d: { url: string }) => {
+  // const token =
+  const url = d.url
+  console.log(url)
 }

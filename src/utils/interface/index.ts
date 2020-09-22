@@ -2,14 +2,19 @@
  * @description 公共的接口信息
  */
 
-export interface UserInfo {
+export interface FormUserInfo {
   userName: string
-  nickName?: string
   password: string
 }
 
 export interface LoginResponseData {
   token?: string
+}
+
+export interface UserData {
+  userName: string
+  nickName: string
+  age: number
 }
 
 export interface ResponseData<T> {
