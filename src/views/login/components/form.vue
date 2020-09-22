@@ -25,7 +25,7 @@
       />
     </a-form-model-item>
     <a-form-model-item :wrapper-col="wrapperCol">
-      <a-button type="primary" @click="onSubmit" block size="large">
+      <a-button type="primary" @click="onSubmit" block size="large" :loading="isLoading">
         登录
       </a-button>
     </a-form-model-item>
@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { FormModel } from 'ant-design-vue'
-import { Component, Emit, Vue } from 'vue-property-decorator'
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class MyForm extends Vue {
@@ -52,13 +52,19 @@ export default class MyForm extends Vue {
     ruleForm: FormModel
   }
 
+  @Prop({
+    type: Boolean,
+    default: false
+  })
+  private isLoading!: boolean
+
   @Emit()
   async onSubmit() {
     try {
       await this.$refs.ruleForm.validate()
       return this.form
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 

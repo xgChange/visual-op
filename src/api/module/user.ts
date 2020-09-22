@@ -3,14 +3,10 @@
  */
 
 import Axios from '@/utils/request'
-import { UserInfo } from '@/utils/interface/index'
+import { UserInfo, ResponseData } from '@/utils/interface/index'
 
-const login = (data: UserInfo) => {
-  return Axios({
-    url: '/user/login',
-    method: 'post',
-    data
-  })
+const login = <T>(data: UserInfo) => {
+  return Axios.post<ResponseData<T>>('/user/login', data)
 }
 
 export default {

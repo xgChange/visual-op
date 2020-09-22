@@ -3,8 +3,9 @@
  */
 import { Module, VuexModule, Action, Mutation, getModule } from 'vuex-module-decorators'
 import store from '../index'
-import { UserInfo } from '@/utils/interface'
+import { UserInfo, LoginResponseData } from '@/utils/interface'
 import { UserApi } from '@/api/index'
+import { message as Message } from 'ant-design-vue'
 
 export interface MyUserState {
   userInfo: UserInfo
@@ -29,12 +30,16 @@ class User extends VuexModule implements MyUserState {
   @Action
   async Login(userInfo: UserInfo) {
     try {
-      const info = await UserApi.login(userInfo)
+      const info = await UserApi.login<LoginResponseData>(userInfo)
+      const { token } = info.data.result
+      if (token) {
+        this.SET_TOKEN(token)
+        localStorage.setItem('mytoken', token)
+        return true
+      }
     } catch (error) {
-      console.log(error)
+      Message.error(error.message)
     }
-    // return info
-    // this.SET_USERINFO(userInfo)
   }
 
   @Action

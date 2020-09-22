@@ -7,3 +7,13 @@ export interface UserInfo {
   nickName?: string
   password: string
 }
+
+export interface LoginResponseData {
+  token?: string
+}
+
+export interface ResponseData<T> {
+  code: number
+  msg: string
+  result: T
+}

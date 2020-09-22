@@ -1,7 +1,7 @@
 /**
  * @description user接口
  */
-import { UserInfo } from '@/utils/interface/index'
+import { UserInfo, ResponseData, LoginResponseData } from '@/utils/interface/index'
 
 const user = {
   userName: 'admin',
@@ -11,21 +11,27 @@ const user = {
 export const login = (d: { body: string }) => {
   const bodyData: UserInfo = JSON.parse(d.body)
   const { userName, password } = bodyData
+  let res: ResponseData<LoginResponseData>
   if (userName !== user.userName) {
-    return {
+    res = {
       code: 10000,
-      msg: '用户名不存在'
+      msg: '用户名不存在',
+      result: {}
     }
   } else if (password !== user.password) {
-    return {
+    res = {
       code: 10001,
-      msg: '密码不正确'
+      msg: '密码不正确',
+      result: {}
     }
   } else {
-    return {
+    res = {
       code: 200,
       msg: '',
-      token: `token${userName}2020`
+      result: {
+        token: `token${userName}2020`
+      }
     }
   }
+  return res
 }

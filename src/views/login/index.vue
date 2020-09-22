@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="my-login-middle-main">
-        <my-form @on-submit="submit"></my-form>
+        <my-form @on-submit="submit" :isLoading="isLoading"></my-form>
       </div>
     </div>
   </div>
@@ -26,9 +26,16 @@ import { UserInfo } from '@/utils/interface/index'
   }
 })
 export default class Login extends Vue {
-  async submit(data: UserInfo | undefined) {
-    if (data) {
-      await UserModule.Login(data)
+  private isLoading = false
+
+  async submit(data: UserInfo | boolean) {
+    if (typeof data !== 'boolean' && data) {
+      this.isLoading = true
+      const result = await UserModule.Login(data)
+      this.isLoading = false
+      if (result) {
+        this.$router.push({ path: '/' })
+      }
     }
   }
 }
