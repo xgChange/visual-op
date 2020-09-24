@@ -28,7 +28,7 @@ import { FormUserInfo } from '@/utils/interface/index'
 export default class Login extends Vue {
   private isLoading = false
 
-  async submit(data: FormUserInfo | boolean) {
+  private async submit(data: FormUserInfo | boolean) {
     if (typeof data !== 'boolean' && data) {
       this.isLoading = true
       const result = await UserModule.Login(data)

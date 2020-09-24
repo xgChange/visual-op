@@ -14,7 +14,7 @@ export interface MyUserState {
 
 @Module({ name: 'user', store, dynamic: true, namespaced: true })
 class User extends VuexModule implements MyUserState {
-  token = localStorage.getItem('mytoken') as string
+  token = (localStorage.getItem('mytoken') as string) || ''
   userInfo = {} as UserData
 
   @Mutation
@@ -43,13 +43,22 @@ class User extends VuexModule implements MyUserState {
   }
 
   @Action
+  resetToken() {
+    this.SET_TOKEN('')
+    localStorage.removeItem('mytoken')
+  }
+
+  @Action
   async getUserInfo() {
-    // 处理获取用户信息
     try {
       const info = await UserApi.getUserInfo<UserData>(this.token)
-      // this.SET_USERINFO(info.data.result)
+      this.SET_USERINFO(info.data.result)
+      return info.data.result.role
     } catch (error) {
-      console.log(error)
+      // 获取用户失败
+      Message.error(error.message)
+      this.resetToken()
+      throw error
     }
   }
 }

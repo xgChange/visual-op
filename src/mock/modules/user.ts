@@ -1,28 +1,32 @@
 /**
  * @description user接口
  */
-import { FormUserInfo, ResponseData, LoginResponseData } from '@/utils/interface/index'
+import { FormUserInfo, ResponseData, LoginResponseData, UserData } from '@/utils/interface/index'
+import { paramsToObj } from '@/utils/index'
 
 const user = {
   userName: 'admin',
-  password: '123'
+  password: '123',
+  nickName: '小池',
+  age: 22
 }
 
 export const login = (d: { body: string }) => {
   const bodyData: FormUserInfo = JSON.parse(d.body)
   const { userName, password } = bodyData
   let res: ResponseData<LoginResponseData>
+  const result = {} as LoginResponseData
   if (userName !== user.userName) {
     res = {
       code: 10000,
       msg: '用户名不存在',
-      result: {}
+      result
     }
   } else if (password !== user.password) {
     res = {
       code: 10001,
       msg: '密码不正确',
-      result: {}
+      result
     }
   } else {
     res = {
@@ -37,7 +41,28 @@ export const login = (d: { body: string }) => {
 }
 
 export const getUserInfo = (d: { url: string }) => {
-  // const token =
   const url = d.url
-  console.log(url)
+  const parmasObj = paramsToObj(url)
+  const token = parmasObj.token
+  let res: ResponseData<UserData>
+  if (token.includes('admin2222')) {
+    res = {
+      code: 200,
+      msg: '',
+      result: {
+        userName: user.userName,
+        nickName: user.nickName,
+        age: user.age,
+        role: 'admin'
+      }
+    }
+  } else {
+    const result = {} as UserData
+    res = {
+      code: 10002,
+      msg: '该用户不存在，获取信息失败',
+      result
+    }
+  }
+  return res
 }

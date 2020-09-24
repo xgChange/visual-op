@@ -8,13 +8,14 @@ export interface FormUserInfo {
 }
 
 export interface LoginResponseData {
-  token?: string
+  token: string
 }
 
 export interface UserData {
   userName: string
   nickName: string
   age: number
+  role: string
 }
 
 export interface ResponseData<T> {

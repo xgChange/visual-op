@@ -1,8 +1,14 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter, { RawLocation, Route } from 'vue-router'
 import { constantRoutes } from './routes'
 
 Vue.use(VueRouter)
+
+// 解决重复引用同一个路由的问题，重写push
+const _push = VueRouter.prototype.push
+VueRouter.prototype.push = function(location: RawLocation) {
+  return _push.call(this, location).catch(err => err)
+}
 
 const createRouter = () =>
   new VueRouter({
