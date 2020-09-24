@@ -8,7 +8,6 @@ import { UserModule } from '@/store/modules/user'
 const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
-  console.log(UserModule.token)
   if (UserModule.token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -17,7 +16,6 @@ router.beforeEach(async (to, from, next) => {
         try {
           await UserModule.getUserInfo()
           next({ path: to.path, replace: true })
-          // next()
         } catch (error) {
           // 获取用户信息失败，重新登录
           next('/login')
@@ -27,8 +25,9 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    // 解决无线递归进入login页面
+    // 解决无限递归进入login页面
     if (whiteList.includes(to.path)) {
+      console.log('ddd')
       next()
     } else {
       next('/login')

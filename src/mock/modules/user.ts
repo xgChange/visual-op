@@ -45,7 +45,7 @@ export const getUserInfo = (d: { url: string }) => {
   const parmasObj = paramsToObj(url)
   const token = parmasObj.token
   let res: ResponseData<UserData>
-  if (token.includes('admin2222')) {
+  if (token.includes('admin')) {
     res = {
       code: 200,
       msg: '',
