@@ -4,10 +4,12 @@
 
 import router from './router/index'
 import { UserModule } from '@/store/modules/user'
+import NProgress from 'nprogress'
 
 const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
+  NProgress.start()
   if (UserModule.token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -21,16 +23,20 @@ router.beforeEach(async (to, from, next) => {
           next('/login')
         }
       } else {
+        // 如果获取了用户信息，则 go on
         next()
       }
     }
   } else {
     // 解决无限递归进入login页面
     if (whiteList.includes(to.path)) {
-      console.log('ddd')
       next()
     } else {
       next('/login')
     }
   }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })

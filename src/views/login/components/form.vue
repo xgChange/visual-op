@@ -17,6 +17,7 @@
         v-model="form.password"
         placeholder="密码：123"
         size="large"
+        @pressEnter="onSubmit"
         @blur="
           () => {
             $refs.password.onFieldBlur()
