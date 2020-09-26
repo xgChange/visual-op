@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter, { RawLocation, Route } from 'vue-router'
+import VueRouter, { RawLocation } from 'vue-router'
 import { constantRoutes } from './routes'
 
 Vue.use(VueRouter)

@@ -4,6 +4,7 @@
 
 import router from './router/index'
 import { UserModule } from '@/store/modules/user'
+import { PermissionModule } from '@/store/modules/permission'
 import NProgress from 'nprogress'
 
 const whiteList = ['/login']
@@ -16,7 +17,9 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (Object.keys(UserModule.userInfo).length === 0) {
         try {
-          await UserModule.getUserInfo()
+          const role = await UserModule.getUserInfo()
+          PermissionModule.GenerateRoutes(role)
+          router.addRoutes(PermissionModule.asyncRoutes)
           next({ path: to.path, replace: true })
         } catch (error) {
           // 获取用户信息失败，重新登录

@@ -8,7 +8,8 @@ export default {
   name: 'visual',
   meta: {
     title: '可视化编辑',
-    isMenu: true,
-    role: ['admin']
+    role: ['admin'],
+    iconType: 'reconciliation',
+    hidden: false // 是否显示在菜单
   }
 }

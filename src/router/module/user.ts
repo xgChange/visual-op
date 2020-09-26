@@ -9,18 +9,34 @@ export default {
   component: Layout,
   name: 'user',
   meta: {
-    isMenu: false,
-    role: ['normal', 'admin']
+    role: ['normal', 'admin'],
+    hidden: true // 是否显示在菜单
   },
   children: [
     {
-      path: 'update',
+      path: 'normal',
       component: () => import('@/views/user/index.vue'),
-      name: 'userUpdate',
+      name: 'userNormal',
       meta: {
-        title: '修改密码',
-        isMenu: false,
-        role: ['normal', 'admin']
+        title: 'normal的页面',
+        role: ['normal']
+      }
+    },
+    {
+      path: 'admin',
+      component: () => import('@/views/user/index.vue'),
+      name: 'userAdmin',
+      meta: {
+        title: 'admin的页面',
+        role: ['admin']
+      }
+    },
+    {
+      path: 'all',
+      component: () => import('@/views/user/index.vue'),
+      name: 'userAll',
+      meta: {
+        title: 'All的页面'
       }
     }
   ]

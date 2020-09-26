@@ -10,7 +10,6 @@ export default {
   name: 'test',
   meta: {
     title: '测试组件',
-    isMenu: true,
     role: ['admin']
   },
   children: [
@@ -20,8 +19,8 @@ export default {
       name: 'testpages',
       meta: {
         title: '测试页面',
-        isMenu: true,
-        role: ['admin']
+        role: ['admin'],
+        hidden: true // 是否显示在菜单
       }
     }
   ]
