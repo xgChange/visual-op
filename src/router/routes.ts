@@ -9,7 +9,7 @@ export const constantRoutes: Array<RouteConfig> = [
   {
     path: '/',
     component: MyLayout,
-    name: 'index',
+    name: '/',
     redirect: '/',
     meta: {
       title: '首页',
@@ -29,7 +29,7 @@ export const constantRoutes: Array<RouteConfig> = [
   },
   {
     path: '/login',
-    name: 'login',
+    name: '/login',
     meta: {
       title: '登录',
       hidden: true

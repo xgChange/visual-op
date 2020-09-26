@@ -5,7 +5,7 @@
 export default {
   path: '/visual',
   component: () => import('@/views/visual/index.vue'),
-  name: 'visual',
+  name: '/visual',
   meta: {
     title: '可视化编辑',
     role: ['admin'],

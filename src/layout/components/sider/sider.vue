@@ -1,5 +1,5 @@
 <template>
-  <a-menu theme="dark" mode="inline" :default-selected-keys="['index']" @click="changePages">
+  <a-menu theme="dark" mode="inline" :default-selected-keys="['/']" @click="changePages">
     <template v-for="item in menuData">
       <template v-if="!item.meta.hidden">
         <a-menu-item v-if="!item.children" :key="item.name">
@@ -55,13 +55,9 @@ export default class MySider extends Vue {
     })
     return this.routes
   }
-
   changePages(item: Item) {
-    console.log(item.domEvent)
-  }
-
-  created() {
-    console.log(this.filterChildren)
+    console.log(item.key)
+    this.$router.push({ path: item.key })
   }
 }
 </script>

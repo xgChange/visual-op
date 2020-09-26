@@ -53,7 +53,7 @@ export const getUserInfo = (d: { url: string }) => {
         userName: user.userName,
         nickName: user.nickName,
         age: user.age,
-        role: 'admin'
+        role: 'normal'
       }
     }
   } else {

@@ -1,7 +1,7 @@
 <template functional>
   <a-sub-menu :key="props.menuInfo.name" v-if="!props.menuInfo.meta.hidden">
     <span slot="title">
-      <a-icon :type="props.menuInfo.meta.iconType" v-if="item.meta.iconType" />
+      <a-icon :type="props.menuInfo.meta.iconType" v-if="props.menuInfo.meta.iconType" />
       <span>{{ props.menuInfo.meta.title }}</span>
     </span>
     <template v-for="item in props.menuInfo.children">
