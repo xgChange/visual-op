@@ -19,10 +19,10 @@
  * @description 使用functional 函数式组件用来递归菜单项。无状态、没有data、this
  */
 import { Vue, Component, Prop } from 'vue-property-decorator'
-// import { MenuItem } from './menu'
+import { RouteConfig } from 'vue-router'
 
 @Component
 export default class SubMenu extends Vue {
-  @Prop() private menuInfo!: any
+  @Prop() private menuInfo!: RouteConfig
 }
 </script>
