@@ -9,6 +9,10 @@
       </div>
       <div class="my-login-middle-main">
         <my-form @on-submit="submit" :isLoading="isLoading"></my-form>
+        <div class="tips-text">
+          <span>normal权限账号：dy</span>
+          <span>密码：123</span>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +78,17 @@ export default class Login extends Vue {
     width: 368px;
     min-width: 260px;
     margin: 20px auto;
+    text-align: center;
+    .tips-text {
+      text-align: center;
+      color: #bbb;
+      margin-left: -10px;
+      span {
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
   }
 }
 </style>

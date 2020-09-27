@@ -4,7 +4,6 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { UserModule } from '@/store/modules/user'
-import { ResponseData } from '@/utils/interface/index'
 
 const httpService = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,

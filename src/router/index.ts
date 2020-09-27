@@ -10,13 +10,10 @@ VueRouter.prototype.push = function(location: RawLocation) {
   return (_push.call(this, location) as any).catch((err: Error) => err)
 }
 
-const createRouter = () =>
-  new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: constantRoutes
-  })
-
-const router = createRouter()
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: constantRoutes
+})
 
 export default router
