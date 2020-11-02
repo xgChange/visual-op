@@ -1,5 +1,5 @@
 <template>
-  <a-menu theme="dark" mode="inline" :default-selected-keys="['/']" @click="changePages">
+  <a-menu theme="dark" mode="inline" :default-selected-keys="activeKeys" @click="changePages">
     <template v-for="item in menuData">
       <template v-if="!item.meta.hidden">
         <a-menu-item v-if="!item.children" :key="item.name">
@@ -17,9 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import subMenu from './submenu.vue'
 import { PermissionModule } from '@/store/modules/permission'
+import { matchRouteParentPath } from '@/utils/index'
 
 interface Item {
   domEvent: MouseEvent
@@ -36,6 +37,14 @@ interface Item {
 export default class MySider extends Vue {
   private info = '这是左边导航栏内容'
   private menuData = this.filterChildren
+
+  @Prop({
+    type: Array,
+    default: () => {
+      return ['/']
+    }
+  })
+  activeKeys!: string
 
   get routes() {
     return PermissionModule.routes
@@ -55,9 +64,11 @@ export default class MySider extends Vue {
     })
     return this.routes
   }
+
   changePages(item: Item) {
-    console.log(item.key)
-    this.$router.push({ path: item.key })
+    const parentRoute = matchRouteParentPath(item.key, this.routes)
+    // if(parentRoute.children)
+    console.log(parentRoute.children.find(item => item.name === item.key))
   }
 }
 </script>

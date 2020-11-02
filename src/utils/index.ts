@@ -2,6 +2,8 @@
  * @description 一些工具函数
  */
 
+import { Route, RouteConfig } from 'vue-router'
+
 export function paramsToObj(str: string, reg = /([a-zA-Z0-9]+)=([a-zA-Z0-9]+)/g) {
   const paramsObj: {
     [index: string]: string
@@ -14,4 +16,17 @@ export function paramsToObj(str: string, reg = /([a-zA-Z0-9]+)=([a-zA-Z0-9]+)/g)
   })
 
   return paramsObj
+}
+
+export function matchRouteParentPath(name: string, pathRoutes: RouteConfig[]): any {
+  const findRoute = pathRoutes.find(item => {
+    if (item.name === name) {
+      return true
+    } else {
+      if (item.children && item.children.length > 0) {
+        return matchRouteParentPath(name, item.children)
+      }
+    }
+  })
+  return findRoute
 }

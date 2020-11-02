@@ -9,7 +9,7 @@ export const constantRoutes: Array<RouteConfig> = [
   {
     path: '/',
     component: MyLayout,
-    name: '/',
+    name: 'indexMenu',
     redirect: '/',
     meta: {
       title: '首页',
@@ -19,17 +19,18 @@ export const constantRoutes: Array<RouteConfig> = [
     children: [
       {
         path: '/',
-        name: 'Home',
+        name: 'home',
         component: () => import('../views/Home.vue'),
         meta: {
-          hidden: true
+          hidden: true,
+          title: '管理系统'
         }
       }
     ]
   },
   {
     path: '/login',
-    name: '/login',
+    name: 'login',
     meta: {
       title: '登录',
       hidden: true

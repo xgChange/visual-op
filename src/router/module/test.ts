@@ -7,7 +7,7 @@ import Layout from '@/layout/index.vue'
 export default {
   path: '/test',
   component: Layout,
-  name: '/test',
+  name: 'testMenu',
   meta: {
     title: '测试组件',
     role: ['admin']
@@ -26,7 +26,7 @@ export default {
     {
       path: 'simple-test2',
       component: () => import('@/views/test/index.vue'),
-      name: '/test/simple-test2',
+      name: 'testSimple2',
       meta: {
         title: '测试页面2',
         role: ['admin'],

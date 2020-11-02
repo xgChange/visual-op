@@ -7,7 +7,7 @@ import Layout from '@/layout/index.vue'
 export default {
   path: '/user',
   component: Layout,
-  name: '/user',
+  name: 'userMenu',
   meta: {
     role: ['normal', 'admin'],
     hidden: true // 是否显示在菜单
@@ -16,7 +16,7 @@ export default {
     {
       path: 'normal',
       component: () => import('@/views/user/index.vue'),
-      name: '/user/normal',
+      name: 'userNormal',
       meta: {
         title: 'normal的页面',
         role: ['normal']
@@ -25,7 +25,7 @@ export default {
     {
       path: 'admin',
       component: () => import('@/views/user/index.vue'),
-      name: '/user/admin',
+      name: 'userAdmin',
       meta: {
         title: 'admin的页面',
         role: ['admin']
@@ -34,7 +34,7 @@ export default {
     {
       path: 'all',
       component: () => import('@/views/user/index.vue'),
-      name: '/user/all',
+      name: 'userAll',
       meta: {
         title: 'All的页面'
       }
