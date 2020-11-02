@@ -1,5 +1,11 @@
 <template>
-  <a-menu theme="dark" mode="inline" :default-selected-keys="activeKeys" @click="changePages">
+  <a-menu
+    theme="dark"
+    mode="inline"
+    :default-selected-keys="activeKeys"
+    :default-open-keys="activeKeys.length > 1 ? [activeKeys[0]] : ['']"
+    @click="changePages"
+  >
     <template v-for="item in menuData">
       <template v-if="!item.meta.hidden">
         <a-menu-item v-if="!item.children" :key="item.name">
@@ -17,10 +23,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import subMenu from './submenu.vue'
 import { PermissionModule } from '@/store/modules/permission'
-import { matchRouteParentPath } from '@/utils/index'
+import { matchRouteParentName } from '@/utils/index'
 
 interface Item {
   domEvent: MouseEvent
@@ -35,19 +41,14 @@ interface Item {
   }
 })
 export default class MySider extends Vue {
-  private info = '这是左边导航栏内容'
   private menuData = this.filterChildren
-
-  @Prop({
-    type: Array,
-    default: () => {
-      return ['/']
-    }
-  })
-  activeKeys!: string
 
   get routes() {
     return PermissionModule.routes
+  }
+
+  get activeKeys() {
+    return PermissionModule.activeKeys
   }
 
   get filterChildren() {
@@ -66,9 +67,20 @@ export default class MySider extends Vue {
   }
 
   changePages(item: Item) {
-    const parentRoute = matchRouteParentPath(item.key, this.routes)
-    // if(parentRoute.children)
-    console.log(parentRoute.children.find(item => item.name === item.key))
+    // 获取父route
+    const parentRoute = matchRouteParentName(item.key, this.routes)
+    let childrenPath = ''
+
+    // 获取子route
+    if (parentRoute.children && parentRoute.children.length > 0) {
+      childrenPath = parentRoute.children.find((r: any) => r.name === item.key).path
+    }
+    childrenPath = childrenPath === '' ? '' : `/${childrenPath}`
+
+    // 完整route
+    this.$router.push({
+      path: `${parentRoute.path}${childrenPath}`
+    })
   }
 }
 </script>

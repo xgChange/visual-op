@@ -9,8 +9,9 @@ export default {
   component: Layout,
   name: 'userMenu',
   meta: {
+    title: '用户管理',
     role: ['normal', 'admin'],
-    hidden: true // 是否显示在菜单
+    hidden: false // 是否显示在菜单
   },
   children: [
     {
