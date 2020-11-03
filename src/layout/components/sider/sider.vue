@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import subMenu from './submenu.vue'
 import { PermissionModule } from '@/store/modules/permission'
 

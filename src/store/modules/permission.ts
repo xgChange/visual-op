@@ -10,7 +10,6 @@ import { constantRoutes, asyncRoutes } from '@/router/routes'
 export interface MyPermission {
   routes: RouteConfig[]
   asyncRoutes: RouteConfig[]
-  activeKeys: string[]
 }
 
 function hasPermission(route: RouteConfig, role: string) {
@@ -41,17 +40,11 @@ function filterAsyncRoutes(routes: RouteConfig[], role: string) {
 class Permission extends VuexModule implements MyPermission {
   routes: RouteConfig[] = []
   asyncRoutes: RouteConfig[] = []
-  activeKeys: string[] = ['indexMenu'] // 默认选中 index
 
   @Mutation
   SET_ROUTES(routes: RouteConfig[]) {
     this.routes = constantRoutes.concat(routes)
     this.asyncRoutes = routes
-  }
-
-  @Mutation
-  SET_ACTIVEKEYS(keys: string[]) {
-    this.activeKeys = keys
   }
 
   @Action
@@ -64,11 +57,6 @@ class Permission extends VuexModule implements MyPermission {
       tempRoutes = filterAsyncRoutes(asyncRoutes, role)
     }
     this.SET_ROUTES(tempRoutes)
-  }
-
-  @Action
-  SaveActiveKeys(keys: string[]) {
-    this.SET_ACTIVEKEYS(keys)
   }
 }
 

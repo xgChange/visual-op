@@ -37,7 +37,6 @@ export default class MyLayout extends Vue {
 
   @Watch('$route', { immediate: true })
   watchRoute(val: Route) {
-    console.log(val)
     // 设置activeKeys
     const pathName = matchRoutePath(val.path, PermissionModule.routes).name // 根据to.path去匹配符合的route
     const selectedKeys = []
