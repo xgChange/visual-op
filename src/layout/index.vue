@@ -19,7 +19,7 @@ import { Route } from 'vue-router'
 import MyHeader from './components/header/header.vue'
 import MySider from './components/sider/sider.vue'
 import { PermissionModule } from '@/store/modules/permission'
-import { matchRouteParentName } from '@/utils/index'
+import { matchRoutePath } from '@/utils/index'
 
 @Component({
   components: {
@@ -29,9 +29,26 @@ import { matchRouteParentName } from '@/utils/index'
 })
 export default class MyLayout extends Vue {
   private collapsed = false
+  private activeKeys = []
 
   showMenu(data: boolean) {
     this.collapsed = data
+  }
+
+  @Watch('$route', { immediate: true })
+  watchRoute(val: Route) {
+    console.log(val)
+    // 设置activeKeys
+    const pathName = matchRoutePath(val.path, PermissionModule.routes).name // 根据to.path去匹配符合的route
+    const selectedKeys = []
+    // 去适配有二级菜单以上，刷新页面时，菜单展开
+    if (val.path.slice(1).indexOf('/') !== -1) {
+      const parentPath = val.path.slice(1).split('/')[0]
+      const parentKey = matchRoutePath(parentPath, PermissionModule.routes).name
+      selectedKeys.unshift(parentKey)
+    }
+    selectedKeys.push(pathName)
+    PermissionModule.SaveActiveKeys(selectedKeys)
   }
 }
 </script>

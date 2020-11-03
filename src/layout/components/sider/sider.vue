@@ -2,7 +2,7 @@
   <a-menu
     theme="dark"
     mode="inline"
-    :default-selected-keys="activeKeys"
+    :default-selected-keys="[activeKeys[activeKeys.length - 1]]"
     :default-open-keys="activeKeys.length > 1 ? [activeKeys[0]] : ['']"
     @click="changePages"
   >
@@ -23,10 +23,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 import subMenu from './submenu.vue'
 import { PermissionModule } from '@/store/modules/permission'
-import { matchRouteParentName } from '@/utils/index'
 
 interface Item {
   domEvent: MouseEvent
@@ -48,6 +47,7 @@ export default class MySider extends Vue {
   }
 
   get activeKeys() {
+    console.log(PermissionModule.activeKeys)
     return PermissionModule.activeKeys
   }
 
@@ -67,20 +67,10 @@ export default class MySider extends Vue {
   }
 
   changePages(item: Item) {
-    // 获取父route
-    const parentRoute = matchRouteParentName(item.key, this.routes)
-    let childrenPath = ''
-
-    // 获取子route
-    if (parentRoute.children && parentRoute.children.length > 0) {
-      childrenPath = parentRoute.children.find((r: any) => r.name === item.key).path
-    }
-    childrenPath = childrenPath === '' ? '' : `/${childrenPath}`
-
-    // 完整route
     this.$router.push({
-      path: `${parentRoute.path}${childrenPath}`
+      name: item.key
     })
+    console.log(item.keyPath)
   }
 }
 </script>
