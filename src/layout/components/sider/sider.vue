@@ -42,13 +42,16 @@ interface Item {
 export default class MySider extends Vue {
   private menuData = this.filterChildren
 
+  @Prop({
+    type: Array,
+    default: () => {
+      return ['/indexMenu']
+    }
+  })
+  activeKeys!: string[]
+
   get routes() {
     return PermissionModule.routes
-  }
-
-  get activeKeys() {
-    console.log(PermissionModule.activeKeys)
-    return PermissionModule.activeKeys
   }
 
   get filterChildren() {
@@ -70,7 +73,6 @@ export default class MySider extends Vue {
     this.$router.push({
       name: item.key
     })
-    console.log(item.keyPath)
   }
 }
 </script>

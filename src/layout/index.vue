@@ -1,7 +1,7 @@
 <template>
   <a-layout class="mylayout-container">
     <a-layout-sider v-model="collapsed" :trigger="null" collapsible breakpoint="lg" class="mysider-container">
-      <my-sider></my-sider>
+      <my-sider :activeKeys="activeKeys"></my-sider>
     </a-layout-sider>
 
     <a-layout class="mylayout-right-container">
@@ -29,7 +29,7 @@ import { matchRoutePath } from '@/utils/index'
 })
 export default class MyLayout extends Vue {
   private collapsed = false
-  private activeKeys = []
+  private activeKeys: string[] = []
 
   showMenu(data: boolean) {
     this.collapsed = data
@@ -48,7 +48,8 @@ export default class MyLayout extends Vue {
       selectedKeys.unshift(parentKey)
     }
     selectedKeys.push(pathName)
-    PermissionModule.SaveActiveKeys(selectedKeys)
+    this.activeKeys = selectedKeys
+    // PermissionModule.SaveActiveKeys(selectedKeys)
   }
 }
 </script>
