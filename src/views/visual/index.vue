@@ -1,25 +1,31 @@
 <template>
   <div class="visual-container">
     <div class="visual-top-container">
+      <div class="top-text">
+        模板名称
+      </div>
       <div class="top-btns">
-        <a-button-group size="large">
-          <a-button type="primary">导出</a-button>
-          <a-button type="primary">保存</a-button>
-        </a-button-group>
+        <a-button type="default" shape="round" size="large" @click="onExport">
+          导出
+        </a-button>
+        <a-button type="default" shape="round" size="large">
+          预览
+        </a-button>
+        <a-button type="default" shape="round" size="large" @click="onSave">
+          保存
+        </a-button>
       </div>
     </div>
-    <a-row>
-      <a-col :span="6" class="visual-left-container">
-        <div class="left-box">
-          left box
-        </div>
+    <a-row class="visual-main-container">
+      <a-col :span="6" class="visual-main-left">
+        <visual-left-com></visual-left-com>
       </a-col>
-      <a-col :span="9" class="visual-mid-container">
+      <a-col :span="9" class="visual-main-mid">
         <div class="visual-simulate">
-          <iframe src="/subpage.html" frameborder="1" width="375" height="667"></iframe>
+          <iframe src="/subpage.html" frameborder="1" width="100%" height="100%"></iframe>
         </div>
       </a-col>
-      <a-col :span="9" class="visual-right-container">
+      <a-col :span="9" class="visual-main-right">
         <div class="right-box">
           right box
         </div>
@@ -30,8 +36,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import VisualLeftCom from './components/visual-left.vue'
 
-@Component
+@Component({
+  components: {
+    VisualLeftCom
+  }
+})
 export default class Visual extends Vue {
   onExport() {
     console.log('导出')
@@ -45,24 +56,47 @@ export default class Visual extends Vue {
 
 <style lang="scss" scoped>
 .visual-container {
+  margin-top: 2px;
   width: 100%;
-  height: 100%;
   .visual-top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 15px 0 15px;
+    background: white;
+    box-shadow: 0 3px 5px #ccc;
+    .top-text {
+      line-height: 45px;
+    }
     .top-btns {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
       button {
-        width: 120px;
-        height: 45px;
+        &:last-child {
+          margin-right: 0px;
+        }
+        &:nth-child(odd) {
+          border-color: rgb(64, 169, 255);
+          color: rgb(64, 169, 255);
+        }
+        &:hover {
+          background: rgb(64, 169, 255);
+          color: white;
+        }
+        margin-right: 15px;
       }
     }
   }
-  .ant-row {
-    width: 100%;
-  }
-  .visual-left-container {
+  .visual-main-container {
     height: 100%;
+    min-width: 1050px;
+    .visual-main-mid {
+      display: flex;
+      justify-content: center;
+      // box-shadow: 0 0 1px black inset;
+      .visual-simulate {
+      }
+    }
   }
 }
 </style>
