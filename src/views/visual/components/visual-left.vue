@@ -69,7 +69,7 @@ export default class VisualLeftCom extends Vue {
           font-size: 30px;
         }
         &:hover {
-          box-shadow: 0px 5px 10px #8888;
+          box-shadow: 0px 5px 10px rgba(148, 54, 21, 0.14);
           color: rgb(64, 169, 255);
         }
       }
