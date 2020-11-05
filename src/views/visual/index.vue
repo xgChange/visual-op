@@ -17,10 +17,10 @@
       </div>
     </div>
     <a-row class="visual-main-container">
-      <a-col :span="6" class="visual-main-left">
+      <a-col :span="5" class="visual-main-left">
         <visual-left-com></visual-left-com>
       </a-col>
-      <a-col :span="9" class="visual-main-mid">
+      <a-col :span="10" class="visual-main-mid">
         <div class="visual-simulate">
           <iframe src="/subpage.html" frameborder="1" width="100%" height="100%"></iframe>
         </div>
@@ -93,7 +93,6 @@ export default class Visual extends Vue {
     .visual-main-mid {
       display: flex;
       justify-content: center;
-      // box-shadow: 0 0 1px black inset;
       .visual-simulate {
       }
     }

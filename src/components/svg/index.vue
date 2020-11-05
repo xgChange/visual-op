@@ -15,14 +15,18 @@ export default class MySvg extends Vue {
   })
   private iconClass!: string
 
-  set iconName(val: string) {
-    this.iconName = `#icon-${this.iconClass}`
-  }
-
   get iconName() {
-    return this.iconName
+    return `#icon-${this.iconClass}`
   }
 }
 </script>
 
-<style></style>
+<style scoped>
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style>

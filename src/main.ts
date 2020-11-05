@@ -4,13 +4,7 @@ import router from './router'
 import store from './store'
 import './plugins/ant-design/index'
 import './assets/styles/global.scss'
-import { Component } from 'vue-property-decorator'
-
-Component.registerHooks([
-  'beforeRouteEnter', //进入路由之前
-  'beforeRouteLeave', //离开路由之前
-  'beforeRouteUpdate'
-])
+import '@/components/svg/index.ts' // 引入svg组件
 
 // mock接口
 import './mock'

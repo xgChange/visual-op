@@ -1,15 +1,15 @@
 <template>
   <div class="visual-edit-left">
-    <div class="list-box">
+    <div class="list-box" v-for="li in utilsModuleList" :key="li.id">
       <div class="list-title" @click="expandContainer">
         <a-icon :type="isExpand ? 'caret-down' : 'caret-right'"></a-icon>
-        常用
+        {{ li.title }}
       </div>
       <collapse-transition>
         <div class="list-container" v-show="isExpand">
-          <div class="list-container-box">
-            <a-icon type="home" class="list-box-icon" />
-            <span>文本</span>
+          <div class="list-container-box" v-for="item in li.content" :key="item.id">
+            <my-svg :iconClass="item.iconName" class="list-box-icon"></my-svg>
+            <span>{{ item.text }}</span>
           </div>
         </div>
       </collapse-transition>
@@ -20,6 +20,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import CollapseTransition from '@/components/collapse-transition'
+import { utilsData } from '@/mock/data/visual'
 
 @Component({
   components: {
@@ -28,6 +29,7 @@ import CollapseTransition from '@/components/collapse-transition'
 })
 export default class VisualLeftCom extends Vue {
   private isExpand = true
+  private utilsModuleList = utilsData
 
   expandContainer() {
     this.isExpand = !this.isExpand
@@ -42,9 +44,10 @@ export default class VisualLeftCom extends Vue {
   padding: 10px;
   user-select: none;
   .list-box {
+    // width: 240px;
     .list-title {
-      height: 45px;
-      line-height: 45px;
+      height: 40px;
+      line-height: 40px;
       font-size: 14px;
       cursor: pointer;
       &:hover {
@@ -54,11 +57,13 @@ export default class VisualLeftCom extends Vue {
     .list-container {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      padding: 0 16px 0 16px;
       .list-container-box {
         height: 70px;
         width: 70px;
-        text-align: center;
         font-size: 14px;
+        margin-top: 8px;
         display: flex;
         flex-direction: column;
         justify-content: center;
