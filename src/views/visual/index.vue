@@ -2,7 +2,7 @@
   <div class="visual-container">
     <div class="visual-top-container">
       <div class="top-text">
-        模板名称
+        商城模板110
       </div>
       <div class="top-btns">
         <a-button type="default" shape="round" size="large" @click="onExport">
@@ -58,6 +58,7 @@ export default class Visual extends Vue {
 .visual-container {
   margin-top: 2px;
   width: 100%;
+  height: 100%;
   .visual-top-container {
     display: flex;
     flex-direction: row;
@@ -89,12 +90,27 @@ export default class Visual extends Vue {
   }
   .visual-main-container {
     height: 100%;
-    min-width: 1050px;
+    min-width: 1420px;
+    .visual-main-left {
+      max-width: 428px;
+      height: 100%;
+      box-shadow: 0px 0px 2px #ccc;
+      background: white;
+    }
     .visual-main-mid {
+      margin-top: 30px;
       display: flex;
       justify-content: center;
       .visual-simulate {
+        width: 375px;
+        height: 667px;
+        box-shadow: 0 0 10px #ccc;
+        border: 1px solid #ccc;
+        border-radius: 10px;
       }
+    }
+    .visual-main-right {
+      // min-width: 645px;
     }
   }
 }

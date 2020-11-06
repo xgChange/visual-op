@@ -39,12 +39,10 @@ export default class VisualLeftCom extends Vue {
 
 <style lang="scss" scoped>
 .visual-edit-left {
-  box-shadow: 0px 0px 2px #ccc;
-  background: white;
   padding: 10px;
   user-select: none;
+
   .list-box {
-    // width: 240px;
     .list-title {
       height: 40px;
       line-height: 40px;
@@ -61,7 +59,7 @@ export default class VisualLeftCom extends Vue {
       padding: 0 16px 0 16px;
       .list-container-box {
         height: 70px;
-        width: 70px;
+        width: 75px;
         font-size: 14px;
         margin-top: 8px;
         display: flex;

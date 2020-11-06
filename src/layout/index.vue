@@ -6,7 +6,7 @@
 
     <a-layout class="mylayout-right-container">
       <my-header :collapsed="collapsed" @show-menu="showMenu"></my-header>
-      <a-layout-content>
+      <a-layout-content class="right-main">
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
@@ -60,6 +60,9 @@ export default class MyLayout extends Vue {
   .mylayout-right-container {
     display: flex;
     flex: 1;
+    .right-main {
+      overflow: hidden;
+    }
   }
 }
 </style>

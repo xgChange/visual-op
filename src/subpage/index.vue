@@ -11,3 +11,11 @@ export default class SubPage extends Vue {
   //
 }
 </script>
+
+<style lang="scss" scoped>
+// .subpage {
+//   width: 375px;
+//   height: 667px;
+//   border: 1px solid #ccc;
+// }
+</style>
