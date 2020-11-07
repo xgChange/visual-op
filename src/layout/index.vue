@@ -61,7 +61,7 @@ export default class MyLayout extends Vue {
     display: flex;
     flex: 1;
     .right-main {
-      overflow: hidden;
+      width: 100%;
     }
   }
 }

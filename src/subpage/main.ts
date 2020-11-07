@@ -3,6 +3,7 @@
  */
 import Vue from 'vue'
 import Subpage from './index.vue'
+import '@/assets/styles/subpage/index.scss'
 
 new Vue({
   render: h => h(Subpage)

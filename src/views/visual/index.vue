@@ -22,7 +22,7 @@
       </a-col>
       <a-col :span="10" class="visual-main-mid">
         <div class="visual-simulate">
-          <iframe src="/subpage.html" frameborder="1" width="100%" height="100%"></iframe>
+          <iframe src="/subpage.html" width="100%" height="100%"></iframe>
         </div>
       </a-col>
       <a-col :span="9" class="visual-main-right">
@@ -58,7 +58,6 @@ export default class Visual extends Vue {
 .visual-container {
   margin-top: 2px;
   width: 100%;
-  height: 100%;
   .visual-top-container {
     display: flex;
     flex-direction: row;
@@ -89,23 +88,22 @@ export default class Visual extends Vue {
     }
   }
   .visual-main-container {
-    height: 100%;
     min-width: 1420px;
+    display: flex;
+    flex-direction: row;
     .visual-main-left {
       max-width: 428px;
-      height: 100%;
       box-shadow: 0px 0px 2px #ccc;
       background: white;
     }
     .visual-main-mid {
-      margin-top: 30px;
+      padding: 20px 0 20px 0;
       display: flex;
       justify-content: center;
       .visual-simulate {
         width: 375px;
         height: 667px;
         box-shadow: 0 0 10px #ccc;
-        border: 1px solid #ccc;
         border-radius: 10px;
       }
     }
