@@ -2,22 +2,24 @@
  * @description 关于可视化编辑界面的一些假数据
  */
 
-interface Content {
+interface ContentInterface {
   id: number
   iconName: string
   text: string
 }
 
-interface Utils {
+export interface UtilsInterface {
   id: number
   title: string
-  content: Content[]
+  active: boolean
+  content: ContentInterface[]
 }
 
-export const utilsData: Utils[] = [
+export const utilsData: UtilsInterface[] = [
   {
     id: 10001,
     title: '常用',
+    active: true,
     content: [
       {
         id: 1001,
@@ -39,6 +41,7 @@ export const utilsData: Utils[] = [
   {
     id: 10002,
     title: '基础',
+    active: true,
     content: [
       {
         id: 1004,
