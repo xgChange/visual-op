@@ -1,12 +1,12 @@
 <template>
   <div class="visual-edit-left">
-    <div class="list-box" v-for="li in utilsModuleList" :key="li.id">
-      <div class="list-title" @click="expandContainer(li)">
-        <a-icon :type="li.active ? 'caret-down' : 'caret-right'"></a-icon>
+    <div class="list-box" v-for="(li, index) in menuData" :key="li.id">
+      <div class="list-title" @click="expandContainer(index)">
+        <a-icon :type="isExpand ? 'caret-down' : 'caret-right'"></a-icon>
         {{ li.title }}
       </div>
       <collapse-transition>
-        <div class="list-container" v-show="li.active">
+        <div class="list-container" v-show="currentKey === index ? !isExpand : isExpand">
           <div class="list-container-box" v-for="item in li.content" :key="item.id">
             <my-svg :iconClass="item.iconName" class="list-box-icon"></my-svg>
             <span>{{ item.text }}</span>
@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import CollapseTransition from '@/components/collapse-transition'
-import { utilsData, UtilsInterface } from '@/mock/data/visual'
+import { UtilsInterface } from '@/mock/data/visual'
 
 @Component({
   components: {
@@ -28,11 +28,20 @@ import { utilsData, UtilsInterface } from '@/mock/data/visual'
   }
 })
 export default class VisualLeftCom extends Vue {
-  private isExpand = true
-  private utilsModuleList = utilsData
+  @Prop({
+    type: Array
+  })
+  private menuData!: UtilsInterface[]
 
-  expandContainer(item: UtilsInterface) {
-    item.active = !item.active
+  private currentKey = -1
+  private isExpand = true
+
+  expandContainer(index: number) {
+    if (this.currentKey === index) {
+      this.currentKey = -1
+      return
+    }
+    this.currentKey = index
   }
 }
 </script>

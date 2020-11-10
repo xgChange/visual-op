@@ -18,7 +18,7 @@
     </div>
     <a-row class="visual-main-container">
       <a-col :span="5" class="visual-main-left">
-        <visual-left-com></visual-left-com>
+        <visual-left-com :menuData="utilsData"></visual-left-com>
       </a-col>
       <a-col :span="10" class="visual-main-mid">
         <div class="visual-simulate">
@@ -37,6 +37,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import VisualLeftCom from './components/visual-left.vue'
+import { utilsData } from '@/mock/data/visual'
 
 @Component({
   components: {
@@ -44,6 +45,7 @@ import VisualLeftCom from './components/visual-left.vue'
   }
 })
 export default class Visual extends Vue {
+  private utilsData = utilsData
   onExport() {
     console.log('导出')
   }
@@ -58,6 +60,9 @@ export default class Visual extends Vue {
 .visual-container {
   margin-top: 2px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   .visual-top-container {
     display: flex;
     flex-direction: row;
@@ -91,6 +96,7 @@ export default class Visual extends Vue {
     min-width: 1420px;
     display: flex;
     flex-direction: row;
+    height: 100%;
     .visual-main-left {
       max-width: 428px;
       box-shadow: 0px 0px 2px #ccc;
