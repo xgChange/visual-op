@@ -2,6 +2,8 @@
  * @description 公共的接口信息
  */
 
+export * from './components/index'
+
 export interface FormUserInfo {
   userName: string
   password: string
