@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import CollapseTransition from '@/components/collapse-transition'
+import CollapseTransition from '@/components/transition/collapse-transition'
 import { UtilsInterface } from '@/mock/data/visual'
 
 @Component({
