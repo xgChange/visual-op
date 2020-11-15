@@ -1,30 +1,27 @@
 <template>
-  <div class="visual-edit-left">
-    <div class="list-box" v-for="(li, index) in menuData" :key="li.id">
-      <div class="list-title" @click="expandContainer(index)">
-        <a-icon :type="isExpand ? 'caret-down' : 'caret-right'"></a-icon>
-        {{ li.title }}
-      </div>
-      <collapse-transition>
-        <div class="list-container" v-show="currentKey === index ? !isExpand : isExpand">
-          <div class="list-container-box" v-for="item in li.content" :key="item.id">
-            <my-svg :iconClass="item.iconName" class="list-box-icon"></my-svg>
-            <span>{{ item.text }}</span>
-          </div>
+  <i-collapse v-model="activeKeys" class="visual-edit-left">
+    <i-collapse-item v-for="li in menuData" :key="li.id" :name="`${li.id}`" :header="li.title" class="list-box">
+      <div class="list-container">
+        <div class="list-container-box" v-for="box in li.content" :key="box.id">
+          <my-svg :iconClass="box.iconName" class="list-box-icon"></my-svg>
+          <span>{{ box.text }}</span>
         </div>
-      </collapse-transition>
-    </div>
-  </div>
+      </div>
+    </i-collapse-item>
+  </i-collapse>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import CollapseTransition from '@/components/transition/collapse-transition'
 import { UtilsInterface } from '@/mock/data/visual'
+import { ICollapse, ICollapseItem } from '@/components/collapse/index.ts'
 
 @Component({
   components: {
-    CollapseTransition
+    CollapseTransition,
+    ICollapse,
+    ICollapseItem
   }
 })
 export default class VisualLeftCom extends Vue {
@@ -33,34 +30,22 @@ export default class VisualLeftCom extends Vue {
   })
   private menuData!: UtilsInterface[]
 
-  private currentKey = -1
-  private isExpand = true
+  private activeKeys!: string[]
 
-  expandContainer(index: number) {
-    if (this.currentKey === index) {
-      this.currentKey = -1
-      return
-    }
-    this.currentKey = index
+  @Watch('menuData', { deep: true, immediate: true })
+  onWatchMenuData(v: UtilsInterface[]) {
+    this.activeKeys = v.map(item => `${item.id}`)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .visual-edit-left {
-  padding: 10px;
+  padding: 10px 10px 10px 15px;
   user-select: none;
 
   .list-box {
-    .list-title {
-      height: 40px;
-      line-height: 40px;
-      font-size: 14px;
-      cursor: pointer;
-      &:hover {
-        color: rgb(64, 169, 255);
-      }
-    }
+    padding-bottom: 10px;
     .list-container {
       display: flex;
       flex-direction: row;

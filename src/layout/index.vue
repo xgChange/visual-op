@@ -62,8 +62,6 @@ export default class MyLayout extends Vue {
     flex: 1;
     .right-main {
       width: 100%;
-      display: flex;
-      flex-direction: column;
     }
   }
 }

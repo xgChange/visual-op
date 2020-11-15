@@ -1,14 +1,12 @@
 <template>
   <div class="i-collapse-item">
-    <div class="list-title" @click="expandContainer">
+    <div class="collapse-title" @click="expandContainer">
       <a-icon :type="isExpand ? 'caret-down' : 'caret-right'"></a-icon>
       <span>{{ header }}</span>
     </div>
     <collapse-transition>
-      <div class="list-container" v-show="isExpand">
-        <div class="list-container-box">
-          <slot></slot>
-        </div>
+      <div class="collapse-item-container" v-show="isExpand">
+        <slot></slot>
       </div>
     </collapse-transition>
   </div>
@@ -48,5 +46,14 @@ export default class ICollpaseItem extends Vue {
 
 <style lang="scss" scoped>
 .i-collapse-item {
+  .collapse-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+      color: rgb(64, 169, 255);
+    }
+  }
 }
 </style>

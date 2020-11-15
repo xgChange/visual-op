@@ -19,10 +19,10 @@ export default class ICollapse extends Vue {
   private value!: string[]
 
   @Prop({
-    type: Boolean,
+    type: [Boolean, String],
     default: false
   })
-  private accordion!: boolean
+  private accordion!: boolean | string
 
   private currentValue = this.value
 
@@ -38,23 +38,42 @@ export default class ICollapse extends Vue {
   toggle(val: CollapseActive) {
     const { isExpand, activeName } = val
     const nameIndex = this.currentValue.indexOf(activeName)
-    if (isExpand) {
-      if (nameIndex > -1) {
-        this.currentValue.splice(nameIndex, 1)
+    const newActiveName = []
+    // 是否开启手风琴，默认只展开一个一个tab
+    if (this.accordion) {
+      if (!isExpand) {
+        newActiveName.push(activeName)
       }
+      this.currentValue = newActiveName
     } else {
-      if (nameIndex < 0) {
-        this.currentValue.push(activeName)
+      if (isExpand) {
+        if (nameIndex > -1) {
+          this.currentValue.splice(nameIndex, 1)
+        }
+      } else {
+        if (nameIndex < 0) {
+          this.currentValue.push(activeName)
+        }
       }
     }
+
     this.$emit('input', this.currentValue)
   }
 
   setActiveKey() {
+    const newActiveName = this.getActiveKey()
     this.$children.forEach((child: any) => {
       const name = child.name
-      child.isExpand = this.currentValue.includes(name)
+      child.isExpand = newActiveName.includes(name)
     })
+  }
+
+  getActiveKey() {
+    let newActiveName = this.currentValue
+    if (this.accordion && this.currentValue.length > 1) {
+      newActiveName = [newActiveName[0]]
+    }
+    return newActiveName
   }
 
   @Watch('value')
@@ -69,4 +88,24 @@ export default class ICollapse extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.i-collapse {
+  height: 100%;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: gray;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(240, 240, 240, 0.6);
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: gray;
+}
+</style>

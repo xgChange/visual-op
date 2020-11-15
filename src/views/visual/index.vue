@@ -58,10 +58,8 @@ export default class Visual extends Vue {
 
 <style lang="scss" scoped>
 .visual-container {
-  margin-top: 2px;
+  padding-top: 2px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   .visual-top-container {
     display: flex;
@@ -93,12 +91,11 @@ export default class Visual extends Vue {
     }
   }
   .visual-main-container {
-    min-width: 1420px;
     display: flex;
     flex-direction: row;
-    height: 100%;
+    height: calc(100% - 70px);
     .visual-main-left {
-      max-width: 428px;
+      min-width: 290px;
       box-shadow: 0px 0px 2px #ccc;
       background: white;
     }
@@ -106,9 +103,9 @@ export default class Visual extends Vue {
       padding: 20px 0 20px 0;
       display: flex;
       justify-content: center;
+      min-width: 450px;
       .visual-simulate {
         width: 375px;
-        height: 667px;
         box-shadow: 0 0 10px #ccc;
         border-radius: 10px;
       }
