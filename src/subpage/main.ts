@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import Subpage from './index.vue'
 import '@/assets/styles/subpage/index.scss'
+import '@/components/svg/index'
 
 new Vue({
   render: h => h(Subpage)

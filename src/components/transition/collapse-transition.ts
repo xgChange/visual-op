@@ -5,7 +5,7 @@ const transitionStyle = 'all 0.3s ease'
 const transition = {
   beforeEnter(el: HTMLElement) {
     el.style.height = '0'
-    el.style.overflow = 'hidden'
+    // el.style.overflow = 'hidden'
     el.style.transition = transitionStyle
   },
   enter(el: HTMLElement) {
