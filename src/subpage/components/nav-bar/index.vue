@@ -3,12 +3,15 @@
     <div class="i-nav-bar-left" @click="handleLeftClick">
       <my-svg iconClass="leftArrow" v-if="leftArrow" class="i-nav-bar-left_icon"></my-svg>
       <span v-if="leftText !== ''">{{ leftText }}</span>
-      <slot name="left"></slot>
+      <slot name="left" v-if="leftText === ''"></slot>
     </div>
-    <div class="i-nav-bar-title">{{ title }}</div>
+    <div class="i-nav-bar-title">
+      <span v-if="title !== ''">{{ title }}</span>
+      <slot name="middle" v-else></slot>
+    </div>
     <div class="i-nav-bar-right" @click="handleRightClick">
       <span v-if="rightText !== ''">{{ rightText }}</span>
-      <slot name="right"></slot>
+      <slot name="right" v-if="rightText === ''"></slot>
     </div>
   </div>
 </template>
@@ -40,29 +43,38 @@ export default class INavBar extends Vue {
 
 .i-nav-bar-content {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   background: white;
   padding: 16px 0;
-  font-size: rem(17);
-  vertical-align: middle;
   user-select: none;
+  position: relative;
 
   .i-nav-bar-left {
-    &_icon {
-      font-size: rem(18);
-    }
-    padding: 0 rem(16);
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    align-items: center;
+    font-size: rem(15);
+    padding: 0 0 0 rem(16);
     color: #1989fa;
     cursor: pointer;
   }
   .i-nav-bar-right {
-    padding: 0 rem(16);
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    font-size: rem(15);
+    padding: 0 rem(16) 0 0;
     color: #1989fa;
     cursor: pointer;
   }
   .i-nav-bar-title {
-    font-size: rem(18);
+    margin: 0 auto;
+    font-size: rem(17);
     font-weight: 500;
   }
 }

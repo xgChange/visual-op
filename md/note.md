@@ -209,3 +209,29 @@
     ```
 
 5. 至此，根据权限动态加载路由就实现了~ (侧边的菜单栏可以通过vuex中的 PermissionModule.routes，递归生成一二三级菜单)
+
+## 布局方面
+
+1. 垂直水平居中
+
+```css
+  /* 使用 flex margin来实现水平垂直居中 */
+  .parent {
+    display: flex; /*或者 justify-content: center*/
+  }
+
+  .child {
+    margin: 0 auto;
+  }
+
+  /* 使用定位来撑起盒子; child盒子设置top和bottom它的高度和parent一样 */
+  .parent {
+    position: relative;
+    padding: 16px 0;
+  }
+  .child {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+```
