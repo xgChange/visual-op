@@ -10,10 +10,13 @@
             showAction
             class="nav-bar-content_iSearch"
             @search="handleSearch"
+            @cancle="handleCancle"
           ></i-search>
         </template>
       </i-nav-bar>
     </div>
+    <!-- <i-input class="subpage-input" type="number" v-model="inputValue" @onBlur="onBlur"></i-input> -->
+    {{ inputValue }}
   </div>
 </template>
 
@@ -21,11 +24,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import INavBar from './components/nav-bar/index.vue'
 import ISearch from './components/search/index.vue'
+import IInput from './components/input/input.vue'
 
 @Component({
   components: {
     INavBar,
-    ISearch
+    ISearch,
+    IInput
   }
 })
 export default class SubPage extends Vue {
@@ -41,7 +46,15 @@ export default class SubPage extends Vue {
   }
 
   handleSearch(v: string) {
-    console.log(this.inputValue, v)
+    console.log('搜索', this.inputValue, v)
+  }
+
+  onBlur(v: string) {
+    console.log('失焦', v)
+  }
+
+  handleCancle() {
+    console.log('cancale')
   }
 }
 </script>
@@ -64,6 +77,9 @@ export default class SubPage extends Vue {
         }
       }
     }
+  }
+  .subpage-input {
+    margin-top: 10px;
   }
 }
 </style>

@@ -1,20 +1,25 @@
 <template>
-  <div class="i-input-content">
-    <div class="i-input-content_left">
-      <div class="i-input-search-box">
-        <my-svg iconClass="input" class="i-input-search-box_icon" :style="orderStyleObj"></my-svg>
-        <input
+  <div class="i-search-content">
+    <div class="i-search-content_left">
+      <div class="i-search-content_left-box">
+        <my-svg iconClass="input" class="i-search-content_left-box_icon" :style="orderStyleObj"></my-svg>
+        <i-input
           type="text"
-          :value="currentValue"
-          :placeholder="placeholder"
-          class="i-input-search-box_input"
-          @input="handleInput"
-          @keyup.enter="handleSearch"
-        />
-        <my-svg iconClass="x" class="i-input-search-box_xicon" :style="xIconStyle" @click.native="deleteValue"></my-svg>
+          v-model="currentValue"
+          v-bind="$attrs"
+          v-on="$listeners"
+          class="i-search-content_left-box_input"
+          @enter="handleSearch"
+        ></i-input>
+        <my-svg
+          iconClass="x"
+          class="i-search-content_left-box_xicon"
+          :style="xIconStyle"
+          @click.native="deleteValue"
+        ></my-svg>
       </div>
     </div>
-    <div class="i-input-content_right" v-if="showAction" @click="handleCancle">
+    <div class="i-search-content_right" v-if="showAction" @click="handleCancle">
       取消
     </div>
   </div>
@@ -22,6 +27,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator'
+import IInput from '@/subpage/components/input/input.vue'
 
 enum IconPosition {
   left = 1,
@@ -30,11 +36,14 @@ enum IconPosition {
 
 type positionType = keyof typeof IconPosition
 
-@Component
+@Component({
+  components: {
+    IInput
+  }
+})
 export default class MyInput extends Vue {
   @Prop({ type: String, default: '' }) value!: string
   @Prop({ type: Boolean, default: false }) showAction!: boolean
-  @Prop({ type: String, default: '请输入关键字' }) placeholder!: string
   @Prop({
     type: String,
     default: 'left',
@@ -64,6 +73,7 @@ export default class MyInput extends Vue {
   deleteValue() {
     this.currentValue = ''
     this.showXIcon = false
+    ;(this.$listeners.input as Function)(this.currentValue)
   }
 
   @Emit('cancle')
@@ -72,21 +82,16 @@ export default class MyInput extends Vue {
     return e
   }
 
-  @Emit('input')
-  handleInput(e: Event) {
-    const targetValue = (e.target as HTMLInputElement).value
-    this.currentValue = targetValue
-    this.showXIcon = true
-    return targetValue
-  }
-
   @Emit('search')
-  handleSearch() {
-    return this.currentValue
+  handleSearch(v: string) {
+    return v
   }
 
   @Watch('currentValue')
   onWatchValue(val: string) {
+    if (val !== '') {
+      this.showXIcon = true
+    }
     this.currentValue = val
   }
 }
@@ -95,36 +100,22 @@ export default class MyInput extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/subpage/_mixins.scss';
 
-input {
-  background: none;
-  outline: none;
-  border: none;
-  padding: 0 rem(3) 0 rem(7);
-
-  &:focus {
-    border: none;
-  }
-  &::placeholder {
-    font-size: rem(14);
-    color: #c8c9ce;
-  }
-}
-
-.i-input-content {
+.i-search-content {
   display: flex;
   align-items: center;
   &_left {
     border: 1px solid #ccc;
-    padding: rem(7) 0 rem(7) 0;
     background: #f7f8fa;
     border-radius: 5px;
-    .i-input-search-box {
+    &-box {
       display: flex;
       flex-direction: row;
       align-items: center;
       position: relative;
       &_input {
         vertical-align: middle;
+        background: transparent;
+        padding-left: rem(5);
       }
       &_icon {
         font-size: rem(18);
