@@ -9,10 +9,12 @@
           :placeholder="placeholder"
           class="i-input-search-box_input"
           @input="handleInput"
+          @keyup.enter="handleSearch"
         />
+        <my-svg iconClass="x" class="i-input-search-box_xicon" :style="xIconStyle" @click.native="deleteValue"></my-svg>
       </div>
     </div>
-    <div class="i-input-content_right" v-if="showAction" @click="handleSearch">
+    <div class="i-input-content_right" v-if="showAction" @click="handleCancle">
       取消
     </div>
   </div>
@@ -43,6 +45,7 @@ export default class MyInput extends Vue {
   iconPosition!: positionType
 
   private currentValue = ''
+  private showXIcon = false
 
   get orderStyleObj() {
     return {
@@ -52,16 +55,34 @@ export default class MyInput extends Vue {
     }
   }
 
-  @Emit('search')
-  handleSearch() {
-    return this.value
+  get xIconStyle() {
+    return {
+      visibility: this.showXIcon === true ? '' : 'hidden'
+    }
+  }
+
+  deleteValue() {
+    this.currentValue = ''
+    this.showXIcon = false
+  }
+
+  @Emit('cancle')
+  handleCancle(e: Event) {
+    this.currentValue = ''
+    return e
   }
 
   @Emit('input')
   handleInput(e: Event) {
     const targetValue = (e.target as HTMLInputElement).value
     this.currentValue = targetValue
+    this.showXIcon = true
     return targetValue
+  }
+
+  @Emit('search')
+  handleSearch() {
+    return this.currentValue
   }
 
   @Watch('currentValue')
@@ -78,14 +99,14 @@ input {
   background: none;
   outline: none;
   border: none;
+  padding: 0 rem(3) 0 rem(7);
+
   &:focus {
     border: none;
   }
   &::placeholder {
     font-size: rem(14);
     color: #c8c9ce;
-    padding-left: rem(5);
-    padding-right: rem(5);
   }
 }
 
@@ -94,19 +115,26 @@ input {
   align-items: center;
   &_left {
     border: 1px solid #ccc;
-    padding: 7px 0 7px 0;
+    padding: rem(7) 0 rem(7) 0;
     background: #f7f8fa;
     border-radius: 5px;
     .i-input-search-box {
       display: flex;
       flex-direction: row;
       align-items: center;
-      &__input {
+      position: relative;
+      &_input {
         vertical-align: middle;
       }
       &_icon {
         font-size: rem(18);
         vertical-align: middle;
+      }
+      &_xicon {
+        font-size: rem(15);
+        vertical-align: middle;
+        color: #ccc;
+        padding-right: 2px;
       }
     }
   }

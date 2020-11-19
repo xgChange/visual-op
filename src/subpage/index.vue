@@ -40,9 +40,8 @@ export default class SubPage extends Vue {
     console.log('右边', e)
   }
 
-  handleSearch(v1: string, v2: Event) {
-    //
-    console.log(this.inputValue)
+  handleSearch(v: string) {
+    console.log(this.inputValue, v)
   }
 }
 </script>
@@ -61,7 +60,7 @@ export default class SubPage extends Vue {
       }
       .nav-bar-content_iSearch {
         /deep/ .i-input-search-box_input {
-          width: 200px !important;
+          width: rem(200);
         }
       }
     }
