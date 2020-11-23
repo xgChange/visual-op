@@ -235,3 +235,59 @@
     bottom: 0;
   }
 ```
+
+## 关于vue中的事件监听($emit、$on、$listeners)
+
+1. Vue中的$emit、$on等，使用的是**发布订阅模式**
+
+    `如果在同一个事件名上监听多个事件，则在emit的时候会触发所有监听的事件。`
+
+2. 关于 **$listeners** 的一些注意事项
+    > 包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="$listeners" 传入内部组件——在创建更高层次的组件时非常有用。
+
+    `只包含了v-on监听器的(@事件名)`
+
+    **所以通过v-on="$listeners"传下去的事件可以通过后面组件this.$emit去触发，发布订阅模式(触发所有事件名监听的事件)**
+
+    `例如在 subpage -> i-search -> i-input 三层组件中`
+
+    ```html
+      <!-- subpage组件 -->
+      <i-search
+         v-model="inputValue"
+         iconPosition="right"
+         placeholder="请输入关键字搜索"
+         showAction
+         class="nav-bar-content_iSearch"
+         @search="handleSearch"
+         @cancle="handleCancle"
+       ></i-search>
+    ```
+
+    ```html
+    <!-- i-search组件通过$listners将父作用域与本作用域v-on监听事件传递下去 -->
+      <i-input
+        type="text"
+        v-model="currentValue"
+        v-bind="$attrs"
+        v-on="$listeners"
+        class="i-search-content_left-box_input"
+        @enter="handleSearch"
+      ></i-input>
+    ```
+
+    ```typescript
+      /*
+        在i-input中，可以通过emit('input')，触发在subpage和i-search中监听的@input事件
+      */
+      @Emit('input')
+      handleInput(e: Event) {
+        const value = (e.target as HTMLInputElement).value
+        this.currentValue = value
+        return value
+      }
+    ```
+3. 关于 **$attrs** 
+    > 简单点就是包含父作用域中，没有写进props里面的 attribute属性(class和style除外)
+
+    `通常搭配inheritAttrs使用，它的作用主要是子组件没有用props去接收父组件传过来的attribute，不会显示在html标签中`

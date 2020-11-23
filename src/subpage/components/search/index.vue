@@ -89,9 +89,7 @@ export default class MyInput extends Vue {
 
   @Watch('currentValue')
   onWatchValue(val: string) {
-    if (val !== '') {
-      this.showXIcon = true
-    }
+    this.showXIcon = val ? true : false
     this.currentValue = val
   }
 }

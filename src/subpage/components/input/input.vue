@@ -19,7 +19,6 @@ import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
 export default class IInput extends Vue {
   @Prop({ type: String, default: '' }) value!: string
   @Prop({ type: String, default: '请输入文字' }) placeholder!: string
-  @Prop({ type: String, default: '' }) dd!: string
   @Prop({
     type: String,
     default: 'text',
@@ -31,15 +30,10 @@ export default class IInput extends Vue {
 
   private currentValue = this.value
 
-  created() {
-    console.log(this.$listeners)
-  }
-
   @Emit('input')
   handleInput(e: Event) {
     const value = (e.target as HTMLInputElement).value
     this.currentValue = value
-    ;(this.$listeners.input as Function)(value)
     return value
   }
 
