@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/nprogress": "^0.2.0",
     "ant-design-vue": "^1.6.5",
+    "async-validator": "^3.5.1",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "nprogress": "^0.2.0",

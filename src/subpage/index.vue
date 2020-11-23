@@ -15,8 +15,16 @@
         </template>
       </i-nav-bar>
     </div>
-    <!-- <i-input class="subpage-input" type="number" v-model="inputValue" @onBlur="onBlur"></i-input> -->
-    {{ inputValue }}
+    <div class="subpage-form">
+      <i-from :model="formModel">
+        <i-form-item label="用户名">
+          <i-input v-model="formModel.user" placeholder="请输入账号"></i-input>
+        </i-form-item>
+        <i-form-item label="密码">
+          <i-input v-model="formModel.pass" placeholder="请输入密码"></i-input>
+        </i-form-item>
+      </i-from>
+    </div>
   </div>
 </template>
 
@@ -25,17 +33,24 @@ import { Component, Vue } from 'vue-property-decorator'
 import INavBar from './components/nav-bar/index.vue'
 import ISearch from './components/search/index.vue'
 import IInput from './components/input/input.vue'
+import { IFrom, IFormItem } from './components/form/index'
 
 @Component({
   components: {
     INavBar,
     ISearch,
-    IInput
+    IInput,
+    IFrom,
+    IFormItem
   }
 })
 export default class SubPage extends Vue {
   private leftText = '返回'
   private inputValue = ''
+  private formModel = {
+    user: 'xmx',
+    pass: '123'
+  }
 
   leftClick(e: Event) {
     console.log('左边', e)

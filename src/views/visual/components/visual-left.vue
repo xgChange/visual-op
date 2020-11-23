@@ -43,6 +43,7 @@ export default class VisualLeftCom extends Vue {
 .visual-edit-left {
   padding: 10px 10px 10px 15px;
   user-select: none;
+  height: auto;
 
   .list-box {
     padding-bottom: 10px;
