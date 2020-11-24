@@ -5,14 +5,20 @@
 </template>
 
 <script lang="ts">
+import { Rules } from 'async-validator'
+import { PropType } from 'vue'
 import { Vue, Component, Prop, Provide } from 'vue-property-decorator'
+
+export interface ModelInterface {
+  [index: string]: string
+}
 
 @Component
 export default class IForm extends Vue {
-  @Prop({ type: Object }) model!: any
+  @Prop({ type: Object as PropType<ModelInterface> }) model!: any
+  @Prop({ type: Object as PropType<Rules> }) rules!: Rules
 
-  @Provide()
-  formModel = this
+  @Provide() formModel = this
 }
 </script>
 

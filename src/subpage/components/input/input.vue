@@ -11,12 +11,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch, Emit, Mixins } from 'vue-property-decorator'
+import EmitterMixins from '@/mixins/emitter'
 
 @Component({
   inheritAttrs: false
 })
-export default class IInput extends Vue {
+export default class IInput extends Mixins(EmitterMixins) {
   @Prop({ type: String, default: '' }) value!: string
   @Prop({ type: String, default: '请输入文字' }) placeholder!: string
   @Prop({
@@ -34,6 +35,7 @@ export default class IInput extends Vue {
   handleInput(e: Event) {
     const value = (e.target as HTMLInputElement).value
     this.currentValue = value
+    this.dispatch('IFormItem', 'on-change')
     return value
   }
 
@@ -44,6 +46,7 @@ export default class IInput extends Vue {
 
   @Emit('onBlur')
   handleBlur() {
+    this.dispatch('IFormItem', 'on-blur')
     return this.currentValue
   }
 

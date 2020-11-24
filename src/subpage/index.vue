@@ -16,11 +16,11 @@
       </i-nav-bar>
     </div>
     <div class="subpage-form">
-      <i-from :model="formModel">
-        <i-form-item label="用户名">
+      <i-from :model="formModel" :rules="rules">
+        <i-form-item label="用户名" prop="user">
           <i-input v-model="formModel.user" placeholder="请输入账号"></i-input>
         </i-form-item>
-        <i-form-item label="密码">
+        <i-form-item label="密码" prop="pass">
           <i-input v-model="formModel.pass" placeholder="请输入密码"></i-input>
         </i-form-item>
       </i-from>
@@ -48,8 +48,12 @@ export default class SubPage extends Vue {
   private leftText = '返回'
   private inputValue = ''
   private formModel = {
-    user: 'xmx',
-    pass: '123'
+    user: '',
+    pass: ''
+  }
+  private rules = {
+    user: [{ type: 'string', required: true, trigger: 'blur' }],
+    pass: [{ type: 'number', required: true, trigger: 'change' }]
   }
 
   leftClick(e: Event) {
