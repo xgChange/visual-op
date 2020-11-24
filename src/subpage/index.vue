@@ -16,7 +16,7 @@
       </i-nav-bar>
     </div>
     <div class="subpage-form">
-      <i-from :model="formModel" :rules="rules">
+      <i-from :model="formModel" :rules="rules" ref="IForm">
         <i-form-item label="用户名" prop="user">
           <i-input v-model="formModel.user" placeholder="请输入账号"></i-input>
         </i-form-item>
@@ -52,8 +52,15 @@ export default class SubPage extends Vue {
     pass: ''
   }
   private rules = {
-    user: [{ type: 'string', required: true, trigger: 'blur' }],
-    pass: [{ type: 'number', required: true, trigger: 'change' }]
+    user: [
+      { type: 'string', required: true, message: '用户名不能为空', trigger: 'blur' },
+      { min: 3, max: 5, message: '长度在3-5位', trigger: 'blur' }
+    ],
+    pass: [{ required: true, message: '密码不能为空', trigger: 'change' }]
+  }
+
+  $refs!: {
+    IForm: IFrom
   }
 
   leftClick(e: Event) {
@@ -74,6 +81,9 @@ export default class SubPage extends Vue {
 
   handleCancle() {
     console.log('cancale')
+    this.$refs.IForm.submit().then(res => {
+      console.log(res)
+    })
   }
 }
 </script>

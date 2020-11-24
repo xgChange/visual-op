@@ -2,7 +2,7 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class EmitterMixins extends Vue {
-  dispatch(comName: string, eventName: string, ...args: string[]) {
+  dispatch(comName: string, eventName: string, ...args: any[]) {
     let parent = this.$parent || this.$root
     let name = parent.$options.name
 
@@ -14,7 +14,7 @@ export default class EmitterMixins extends Vue {
     }
 
     if (parent) {
-      parent.$emit.apply(parent, [eventName, args])
+      parent.$emit.apply(parent, [eventName, ...args])
     }
   }
 }

@@ -3,25 +3,16 @@
     <div class="i-form-item-label" v-if="label">{{ label }}</div>
     <div class="i-form-item-slot">
       <slot></slot>
-      <!-- <div class="i-form-item-slot_error">错误提示</div> -->
+      <div class="i-form-item-slot_error" v-if="validateStatus === 'error'">{{ errorMsg }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import AValidator, { RuleItem, Rules } from 'async-validator'
-import { Vue, Component, Prop, Inject, Mixins } from 'vue-property-decorator'
+import AValidator, { ErrorList, Rules } from 'async-validator'
+import { Component, Prop, Inject, Mixins } from 'vue-property-decorator'
 import EmitterMixins from '@/mixins/emitter'
-import { ModelInterface } from './form.vue'
-
-interface MyRulesItem extends RuleItem {
-  trigger?: string
-}
-
-interface FormModelInter extends Vue {
-  model: ModelInterface
-  rules: Rules
-}
+import { ObjectPropStr, MyRulesItem, FormModelInter } from '../../utils/interface'
 
 @Component
 export default class IFormItem extends Mixins(EmitterMixins) {
@@ -30,7 +21,11 @@ export default class IFormItem extends Mixins(EmitterMixins) {
 
   @Inject('formModel') private formModel!: FormModelInter
 
+  private validateStatus = 'error'
+  private errorMsg = ''
+
   mounted() {
+    this.dispatch('IForm', 'on-item-add', this)
     this.setRules()
   }
 
@@ -56,21 +51,26 @@ export default class IFormItem extends Mixins(EmitterMixins) {
 
   getFieldRules(trigger: string) {
     const allRules = this.getRules()
-    return allRules.filter(rule => (rule as MyRulesItem).trigger && (rule as MyRulesItem).trigger === trigger)
+    return trigger
+      ? allRules.filter(rule => (rule as MyRulesItem).trigger && (rule as MyRulesItem).trigger === trigger)
+      : allRules
   }
 
-  validate(trigger: string) {
-    const descriptor = Object.create(null)
-    const model = Object.create(null)
+  validate(trigger: string, callback: CallableFunction = new Function()) {
+    const descriptor = {} as Rules
+    const model = {} as ObjectPropStr
+    const fieldRules = this.getFieldRules(trigger)
+    if (fieldRules.length === 0) return
+
     this.$nextTick(() => {
-      const fieldRules = this.getFieldRules(trigger)
       descriptor[this.prop] = fieldRules
       model[this.prop] = this.fieldVal
-      console.log(descriptor, model)
-      // const validator = new AValidator(descriptor)
-      // validator.validate(model).then(res => {
-      //   console.log(res)
-      // })
+      const validator = new AValidator(descriptor)
+      validator.validate(model, {}, (err: ErrorList) => {
+        this.validateStatus = err ? 'error' : 'success'
+        this.errorMsg = err ? err[0].message : ''
+        callback(this.errorMsg)
+      })
     })
   }
 }
