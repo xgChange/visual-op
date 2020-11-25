@@ -1,6 +1,6 @@
 @import '../../../assets/styles/_variables';
 
-@mixin buttonStyle($fontsize, $width, $height){
+@mixin buttonStyle($fontsize, $width, $height) {
   font-size: $fontsize;
   width: $width;
   height: $height;
@@ -16,27 +16,27 @@
 // button type
 .i-button-default {
   color: #000;
-  @include buttonColor($default_color)
+  @include buttonColor($default_color);
 }
 
 .i-button-primary {
   color: #fff;
-  @include buttonColor($primary_color)
+  @include buttonColor($primary_color);
 }
 
 .i-button-info {
   color: #fff;
-  @include buttonColor($info_color)
+  @include buttonColor($info_color);
 }
 
 .i-button-warning {
   color: #fff;
-  @include buttonColor($warning_color)
+  @include buttonColor($warning_color);
 }
 
 .i-button-danger {
   color: #fff;
-  @include buttonColor($danger_color)
+  @include buttonColor($danger_color);
 }
 
 // button size

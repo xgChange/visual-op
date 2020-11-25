@@ -22,4 +22,4 @@ export interface ModelInterface {
   [index: string]: string
 }
 
-export { Rules }
+// export { Rules }

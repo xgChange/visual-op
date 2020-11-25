@@ -23,9 +23,9 @@
         <i-form-item label="密码" prop="pass">
           <i-input v-model="formModel.pass" placeholder="请输入密码"></i-input>
         </i-form-item>
-        <i-button>登录</i-button>
       </i-from>
     </div>
+    <i-button type="primary" size="small" nativeType="button" @click="btnClick">点击</i-button>
   </div>
 </template>
 
@@ -72,6 +72,7 @@ export default class SubPage extends Vue {
     this.$refs.IForm.reset()
   }
 
+  // 原form submit提交
   primarySubmit(v: ObjectPropStr) {
     console.log(v)
   }
@@ -90,9 +91,13 @@ export default class SubPage extends Vue {
 
   handleCancle() {
     console.log('cancale')
-    this.$refs.IForm.submit().then(res => {
-      console.log(res, this.formModel)
-    })
+  }
+
+  btnClick() {
+    console.log('按钮事件')
+    // this.$refs.IForm.submit().then(res => {
+    //   console.log(res, this.formModel)
+    // })
   }
 }
 </script>

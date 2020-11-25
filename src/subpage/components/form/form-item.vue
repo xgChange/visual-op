@@ -91,6 +91,10 @@ export default class IFormItem extends Mixins(EmitterMixins) {
     this.errorMsg = ''
     this.fieldVal = this.initData
   }
+
+  beforeDestroy() {
+    this.dispatch('IForm', 'on-item-remove', this)
+  }
 }
 </script>
 

@@ -72,7 +72,7 @@ input {
     border: none;
   }
   &::placeholder {
-    font-size: rem(15);
+    font-size: 12px;
     color: #c8c9ce;
   }
   &[type='number'] {

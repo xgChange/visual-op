@@ -7,7 +7,8 @@
 <script lang="ts">
 import { PropType } from 'vue'
 import { Vue, Component, Prop, Provide } from 'vue-property-decorator'
-import { ModelInterface, Rules } from '../../utils/interface'
+import { ModelInterface } from '../../utils/interface'
+import { Rules } from 'async-validator'
 import IFormItem from './form-item.vue'
 
 @Component
@@ -23,6 +24,11 @@ export default class IForm extends Vue {
   created() {
     this.$on('on-item-add', (v: IFormItem) => {
       this.childrenDep.push(v)
+    })
+
+    this.$on('on-item-remove', (v: IFormItem) => {
+      const index = this.childrenDep.indexOf(v)
+      this.childrenDep.splice(index, 1)
     })
   }
 
