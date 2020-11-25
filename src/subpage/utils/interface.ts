@@ -15,6 +15,7 @@ export interface MyRulesItem extends RuleItem {
 export interface FormModelInter extends Vue {
   model: ModelInterface
   rules: Rules
+  labelWidth: string | number
 }
 
 export interface ModelInterface {

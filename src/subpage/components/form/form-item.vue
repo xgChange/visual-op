@@ -1,6 +1,6 @@
 <template>
   <div class="i-form-item-content">
-    <div class="i-form-item-label" v-if="label">{{ label }}</div>
+    <div class="i-form-item-label" :style="labelStyle" v-if="label">{{ label }}</div>
     <div class="i-form-item-slot">
       <slot></slot>
       <div class="i-form-item-slot_error" v-if="validateStatus === 'error'">{{ errorMsg }}</div>
@@ -12,7 +12,7 @@
 import AValidator, { ErrorList, Rules } from 'async-validator'
 import { Component, Prop, Inject, Mixins } from 'vue-property-decorator'
 import EmitterMixins from '@/mixins/emitter'
-import { ObjectPropStr, MyRulesItem, FormModelInter } from '../../utils/interface'
+import { ObjectPropStr, MyRulesItem, FormModelInter, pxToRem } from '../../utils/index'
 
 @Component
 export default class IFormItem extends Mixins(EmitterMixins) {
@@ -21,16 +21,28 @@ export default class IFormItem extends Mixins(EmitterMixins) {
 
   @Inject('formModel') private formModel!: FormModelInter
 
-  private validateStatus = 'error'
+  private validateStatus = 'success'
   private errorMsg = ''
+  private initData = ''
 
   mounted() {
     this.dispatch('IForm', 'on-item-add', this)
+    this.initData = this.fieldVal
     this.setRules()
+  }
+
+  get labelStyle() {
+    return {
+      width: `${pxToRem(this.formModel.labelWidth)}rem`
+    }
   }
 
   get fieldVal() {
     return this.formModel.model[this.prop]
+  }
+
+  set fieldVal(v) {
+    this.formModel.model[this.prop] = v
   }
 
   setRules() {
@@ -72,6 +84,12 @@ export default class IFormItem extends Mixins(EmitterMixins) {
         callback(this.errorMsg)
       })
     })
+  }
+
+  reset() {
+    this.validateStatus = ''
+    this.errorMsg = ''
+    this.fieldVal = this.initData
   }
 }
 </script>

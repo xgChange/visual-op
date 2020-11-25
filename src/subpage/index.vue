@@ -16,7 +16,7 @@
       </i-nav-bar>
     </div>
     <div class="subpage-form">
-      <i-from :model="formModel" :rules="rules" ref="IForm">
+      <i-from :model="formModel" :rules="rules" ref="IForm" @onPrimarySubmit="primarySubmit">
         <i-form-item label="用户名" prop="user">
           <i-input v-model="formModel.user" placeholder="请输入账号"></i-input>
         </i-form-item>
@@ -34,6 +34,7 @@ import INavBar from './components/nav-bar/index.vue'
 import ISearch from './components/search/index.vue'
 import IInput from './components/input/input.vue'
 import { IFrom, IFormItem } from './components/form/index'
+import { ObjectPropStr } from './utils/index'
 
 @Component({
   components: {
@@ -65,6 +66,11 @@ export default class SubPage extends Vue {
 
   leftClick(e: Event) {
     console.log('左边', e)
+    this.$refs.IForm.reset()
+  }
+
+  primarySubmit(v: ObjectPropStr) {
+    console.log(v)
   }
 
   rightClick(e: Event) {
@@ -82,7 +88,7 @@ export default class SubPage extends Vue {
   handleCancle() {
     console.log('cancale')
     this.$refs.IForm.submit().then(res => {
-      console.log(res)
+      console.log(res, this.formModel)
     })
   }
 }

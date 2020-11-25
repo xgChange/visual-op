@@ -1,5 +1,5 @@
 <template>
-  <form class="i-form-content">
+  <form class="i-form-content" @submit="primarySubmit">
     <slot></slot>
   </form>
 </template>
@@ -14,6 +14,7 @@ import IFormItem from './form-item.vue'
 export default class IForm extends Vue {
   @Prop({ type: Object as PropType<ModelInterface> }) model!: ModelInterface
   @Prop({ type: Object as PropType<Rules> }) rules!: Rules
+  @Prop({ type: [String, Number], default: 86 }) labelWidth!: string | number
 
   @Provide() formModel = this
 
@@ -40,6 +41,21 @@ export default class IForm extends Vue {
           }
         })
       })
+    })
+  }
+
+  reset() {
+    this.childrenDep.forEach(ch => {
+      ch.reset()
+    })
+  }
+
+  primarySubmit(e: Event) {
+    e.preventDefault()
+    this.submit().then(res => {
+      if (res) {
+        this.$emit('onPrimarySubmit', this.model)
+      }
     })
   }
 }
