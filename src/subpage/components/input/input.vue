@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch, Emit, Mixins } from 'vue-property-decorator'
+import { Component, Prop, Watch, Emit, Mixins } from 'vue-property-decorator'
 import EmitterMixins from '@/mixins/emitter'
 
 @Component({

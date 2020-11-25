@@ -23,6 +23,7 @@
         <i-form-item label="密码" prop="pass">
           <i-input v-model="formModel.pass" placeholder="请输入密码"></i-input>
         </i-form-item>
+        <i-button>登录</i-button>
       </i-from>
     </div>
   </div>
@@ -35,6 +36,7 @@ import ISearch from './components/search/index.vue'
 import IInput from './components/input/input.vue'
 import { IFrom, IFormItem } from './components/form/index'
 import { ObjectPropStr } from './utils/index'
+import IButton from './components/button/index.vue'
 
 @Component({
   components: {
@@ -42,7 +44,8 @@ import { ObjectPropStr } from './utils/index'
     ISearch,
     IInput,
     IFrom,
-    IFormItem
+    IFormItem,
+    IButton
   }
 })
 export default class SubPage extends Vue {
