@@ -18,11 +18,11 @@
     </div>
     <a-row class="visual-main-container">
       <a-col :span="5" class="visual-main-left">
-        <visual-left-com :menuData="utilsData"></visual-left-com>
+        <visual-left-com :menuData="utilsData" @itemClick="itemClick"></visual-left-com>
       </a-col>
       <a-col :span="10" class="visual-main-mid">
         <div class="visual-simulate">
-          <iframe src="/subpage.html" width="100%" height="100%"></iframe>
+          <iframe ref="subIframe" src="/subpage.html" width="100%" height="100%"></iframe>
         </div>
       </a-col>
       <a-col :span="9" class="visual-main-right">
@@ -46,12 +46,18 @@ import { utilsData } from '@/mock/data/visual'
 })
 export default class Visual extends Vue {
   private utilsData = utilsData
+
   onExport() {
     console.log('导出')
   }
 
   onSave() {
     console.log('保存')
+  }
+
+  itemClick(id: number) {
+    const subpage = (this.$refs.subIframe as HTMLIFrameElement).contentWindow?.$subpage
+    console.log(id, subpage)
   }
 }
 </script>

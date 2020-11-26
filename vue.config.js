@@ -1,3 +1,4 @@
+const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
 const pages = {
@@ -14,11 +15,16 @@ const pages = {
   }
 }
 
+const resolve = function(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   publicPath: isProd ? './' : '/',
   productionSourceMap: !isProd,
   pages, // 配置多页面
   chainWebpack: config => {
+    config.resolve.alias.set('@', resolve('src'))
     if (pages) {
       Object.keys(pages).forEach(page => {
         config.plugins.delete(`preload-${page}`)

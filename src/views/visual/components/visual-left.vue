@@ -2,7 +2,7 @@
   <i-collapse v-model="activeKeys" class="visual-edit-left">
     <i-collapse-item v-for="li in menuData" :key="li.id" :name="`${li.id}`" :header="li.title" class="list-box">
       <div class="list-container">
-        <div class="list-container-box" v-for="box in li.content" :key="box.id">
+        <div class="list-container-box" v-for="box in li.content" :key="box.id" @click="handleClick(box.id)">
           <my-svg :iconClass="box.iconName" class="list-box-icon"></my-svg>
           <span>{{ box.text }}</span>
         </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import CollapseTransition from '@/components/transition/collapse-transition'
 import { UtilsInterface } from '@/mock/data/visual'
 import { ICollapse, ICollapseItem } from '@/components/collapse/index.ts'
@@ -35,6 +35,11 @@ export default class VisualLeftCom extends Vue {
   @Watch('menuData', { deep: true, immediate: true })
   onWatchMenuData(v: UtilsInterface[]) {
     this.activeKeys = v.map(item => `${item.id}`)
+  }
+
+  @Emit('itemClick')
+  handleClick(id: number) {
+    return id
   }
 }
 </script>

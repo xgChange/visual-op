@@ -21,7 +21,7 @@ import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 
 @Component
 export default class INavBar extends Vue {
-  @Prop({ type: Boolean, default: false }) leftArrow!: boolean
+  @Prop({ type: Boolean, default: true }) leftArrow!: boolean
   @Prop({ type: String, default: '' }) leftText!: string
   @Prop({ type: String, default: '' }) rightText!: string
   @Prop({ type: String, default: '' }) title!: string

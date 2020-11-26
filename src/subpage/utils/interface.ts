@@ -22,4 +22,8 @@ export interface ModelInterface {
   [index: string]: string
 }
 
+export interface SubWindow extends Window {
+  $subpage: Vue
+}
+
 // export { Rules }
