@@ -1,19 +1,11 @@
 <template>
   <div class="visual-container">
     <div class="visual-top-container">
-      <div class="top-text">
-        商城模板110
-      </div>
+      <div class="top-text">商城模板110</div>
       <div class="top-btns">
-        <a-button type="default" shape="round" size="large" @click="onExport">
-          导出
-        </a-button>
-        <a-button type="default" shape="round" size="large">
-          预览
-        </a-button>
-        <a-button type="default" shape="round" size="large" @click="onSave">
-          保存
-        </a-button>
+        <a-button type="default" shape="round" size="large" @click="onExport"> 导出 </a-button>
+        <a-button type="default" shape="round" size="large"> 预览 </a-button>
+        <a-button type="default" shape="round" size="large" @click="onSave"> 保存 </a-button>
       </div>
     </div>
     <a-row class="visual-main-container">
@@ -26,9 +18,7 @@
         </div>
       </a-col>
       <a-col :span="9" class="visual-main-right">
-        <div class="right-box">
-          right box
-        </div>
+        <div class="right-box">right box</div>
       </a-col>
     </a-row>
   </div>
@@ -38,6 +28,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import VisualLeftCom from './components/visual-left.vue'
 import { utilsData } from '@/mock/data/visual'
+import SubPage from '@/subpage/index'
 
 @Component({
   components: {
@@ -55,9 +46,11 @@ export default class Visual extends Vue {
     console.log('保存')
   }
 
-  itemClick(id: number) {
+  itemClick(id: number, comName: string) {
     const subpage = (this.$refs.subIframe as HTMLIFrameElement).contentWindow?.$subpage
-    console.log(id, subpage)
+    if (subpage) {
+      ;(subpage as SubPage).renderComponent(comName)
+    }
   }
 }
 </script>
@@ -115,9 +108,6 @@ export default class Visual extends Vue {
         box-shadow: 0 0 10px #ccc;
         border-radius: 10px;
       }
-    }
-    .visual-main-right {
-      // min-width: 645px;
     }
   }
 }

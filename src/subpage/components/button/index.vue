@@ -45,9 +45,7 @@ export default class IButton extends Vue {
   }
 
   @Emit('click')
-  handleClick(e: Event) {
-    return e
-  }
+  handleClick(e: Event) {}
 }
 </script>
 

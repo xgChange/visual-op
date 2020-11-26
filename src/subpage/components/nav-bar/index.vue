@@ -27,14 +27,10 @@ export default class INavBar extends Vue {
   @Prop({ type: String, default: '' }) title!: string
 
   @Emit('leftClick')
-  handleLeftClick(event: Event) {
-    return event
-  }
+  handleLeftClick(event: Event) {}
 
   @Emit('rightClick')
-  handleRightClick(event: Event) {
-    return event
-  }
+  handleRightClick(event: Event) {}
 }
 </script>
 

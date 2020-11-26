@@ -2,7 +2,12 @@
   <i-collapse v-model="activeKeys" class="visual-edit-left">
     <i-collapse-item v-for="li in menuData" :key="li.id" :name="`${li.id}`" :header="li.title" class="list-box">
       <div class="list-container">
-        <div class="list-container-box" v-for="box in li.content" :key="box.id" @click="handleClick(box.id)">
+        <div
+          class="list-container-box"
+          v-for="box in li.content"
+          :key="box.id"
+          @click="handleClick(box.id, box.comName)"
+        >
           <my-svg :iconClass="box.iconName" class="list-box-icon"></my-svg>
           <span>{{ box.text }}</span>
         </div>
@@ -38,9 +43,7 @@ export default class VisualLeftCom extends Vue {
   }
 
   @Emit('itemClick')
-  handleClick(id: number) {
-    return id
-  }
+  handleClick(id: number, comName: string) {}
 }
 </script>
 

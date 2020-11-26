@@ -6,6 +6,7 @@ interface ContentInterface {
   id: number
   iconName: string
   text: string
+  comName: string
 }
 
 export interface UtilsInterface {
@@ -24,17 +25,20 @@ export const utilsData: UtilsInterface[] = [
       {
         id: 1001,
         iconName: 'navbar',
-        text: '导航栏'
+        text: '导航栏',
+        comName: 'INavBar'
       },
       {
         id: 1002,
         iconName: 'tabbar',
-        text: '底部栏'
+        text: '底部栏',
+        comName: 'ITabBar'
       },
       {
         id: 1003,
         iconName: 'swiper',
-        text: '轮播图'
+        text: '轮播图',
+        comName: 'ISwiper'
       }
     ]
   },
@@ -46,27 +50,38 @@ export const utilsData: UtilsInterface[] = [
       {
         id: 1004,
         iconName: 'text',
-        text: '文本'
+        text: '文本',
+        comName: 'IText'
       },
       {
         id: 1005,
         iconName: 'image',
-        text: '图片'
+        text: '图片',
+        comName: 'IImage'
       },
       {
         id: 1006,
         iconName: 'button',
-        text: '按钮'
+        text: '按钮',
+        comName: 'IButton'
       },
       {
         id: 1007,
         iconName: 'input',
-        text: '输入框'
+        text: '输入框',
+        comName: 'IInput'
       },
       {
         id: 1008,
         iconName: 'form',
-        text: '表单'
+        text: '表单',
+        comName: 'IForm'
+      },
+      {
+        id: 1009,
+        iconName: 'input',
+        text: '搜索框',
+        comName: 'ISearch'
       }
     ]
   }

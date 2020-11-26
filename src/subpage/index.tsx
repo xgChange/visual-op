@@ -1,25 +1,29 @@
 import { Vue, Component } from 'vue-property-decorator'
+import ComponentObj from './plugin/index'
 // import { IInput } from './components/input'
 
 @Component
 export default class Subpage extends Vue {
   created() {
     window.$subpage = this
-    console.log()
   }
 
   // 渲染某个组件
-  renderComponent(type: string) {
-    //
+  renderComponent(type = 'IInput') {
+    // const component = ComponentObj[type]
+    // return component
   }
 
   renderChildren() {
-    // return <IInput></IInput>
+    const type = 'IInput'
+    const TT = ComponentObj[type]
+    // const component = this.renderComponent()
+    return <TT></TT>
   }
 
   renderSubpage() {
-    // const children = this.renderChildren()
-    return <div class="subpage"></div>
+    const children = this.renderChildren()
+    return <div class="subpage">{children}</div>
   }
 
   render() {
