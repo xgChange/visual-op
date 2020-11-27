@@ -65,3 +65,7 @@ export function matchRoutePath(path: string, pathRoutes: RouteConfig[]): any {
     }
   }
 }
+
+/**
+ * @description 深拷贝
+ */

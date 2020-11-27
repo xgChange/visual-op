@@ -79,7 +79,6 @@ export default class MyInput extends Vue {
   @Emit('cancle')
   handleCancle(e: Event) {
     this.currentValue = ''
-    return e
   }
 
   @Emit('search')

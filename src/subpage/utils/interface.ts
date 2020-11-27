@@ -22,8 +22,19 @@ export interface ModelInterface {
   [index: string]: string
 }
 
-export interface SubWindow extends Window {
-  $subpage: Vue
+// json配置文件中的 item
+export interface ComItemProps {
+  typeName: string
+  data?: any
 }
 
-// export { Rules }
+export interface ComJsonData {
+  template: string
+  componentsData: ComItemProps[]
+}
+
+// 所选择的组件名称
+export interface SelectedComData {
+  name: string
+  key: string
+}

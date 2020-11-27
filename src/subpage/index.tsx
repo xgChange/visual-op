@@ -1,32 +1,43 @@
 import { Vue, Component } from 'vue-property-decorator'
-import ComponentObj from './plugin/index'
-// import { IInput } from './components/input'
+import ComTemplate from './template/index'
+import { SelectedComData } from '@/subpage/utils/index'
+import { ComponentsKeys } from '@/subpage/plugin/index'
 
 @Component
 export default class Subpage extends Vue {
+  private $parentEditor = {} as Vue
+  private allComponentsData: SelectedComData[] = []
+
   created() {
+    this.$on('on-message', (id: string, typeName: string) => {
+      if (!ComponentsKeys.includes(typeName)) {
+        console.log('没有这个组件')
+        return
+      }
+      const obj: SelectedComData = {
+        key: typeName,
+        name: typeName
+      }
+      this.allComponentsData.push(obj)
+    })
+  }
+
+  mounted() {
     window.$subpage = this
-  }
-
-  // 渲染某个组件
-  renderComponent(type = 'IInput') {
-    // const component = ComponentObj[type]
-    // return component
-  }
-
-  renderChildren() {
-    const type = 'IInput'
-    const TT = ComponentObj[type]
-    // const component = this.renderComponent()
-    return <TT></TT>
-  }
-
-  renderSubpage() {
-    const children = this.renderChildren()
-    return <div class="subpage">{children}</div>
+    this.$parentEditor = window.parent.$editor
+    ;(this.$parentEditor as any).iframeLoad()
   }
 
   render() {
-    return this.renderSubpage()
+    const comProps = {
+      props: {
+        allComponentsData: this.allComponentsData
+      }
+    }
+    return (
+      <div class="subpage">
+        <ComTemplate {...comProps}></ComTemplate>
+      </div>
+    )
   }
 }

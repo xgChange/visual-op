@@ -37,6 +37,11 @@ import SubPage from '@/subpage/index'
 })
 export default class Visual extends Vue {
   private utilsData = utilsData
+  private $subpage = {} as Vue
+
+  mounted() {
+    window.$editor = this
+  }
 
   onExport() {
     console.log('导出')
@@ -46,11 +51,17 @@ export default class Visual extends Vue {
     console.log('保存')
   }
 
-  itemClick(id: number, comName: string) {
+  // 在iframe里面调用，初始化变量
+  iframeLoad() {
     const subpage = (this.$refs.subIframe as HTMLIFrameElement).contentWindow?.$subpage
     if (subpage) {
-      ;(subpage as SubPage).renderComponent(comName)
+      this.$subpage = subpage
     }
+  }
+
+  itemClick(id: number, comName: string) {
+    // console.log(this.$subpage.)
+    this.$subpage.$emit('on-message', id, comName)
   }
 }
 </script>

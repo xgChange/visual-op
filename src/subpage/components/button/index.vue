@@ -18,7 +18,7 @@ type NativeType = 'button' | 'reset' | 'submit'
 
 @Component
 export default class IButton extends Vue {
-  @Prop({ type: String as PropType<ButtonType>, default: 'default' }) type!: ButtonType
+  @Prop({ type: String as PropType<ButtonType>, default: 'primary' }) type!: ButtonType
   @Prop({ type: String as PropType<ButtonSize>, default: 'normal' }) size!: ButtonSize
   @Prop({ type: String as PropType<NativeType>, default: 'button' }) nativeType!: NativeType
   @Prop({ type: String, default: '' }) color!: string
