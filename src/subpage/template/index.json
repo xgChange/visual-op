@@ -4,7 +4,42 @@
     {
       "typeName": "IInput",
       "data": {
-        
+        "value": "这是测试数据"
+      }
+    },
+    {
+      "typeName": "IButton",
+      "data": {
+        "type": "info",
+        "size": "small",
+        "slots": {
+          "default": {
+            "content": "按钮"
+          }
+        }
+      }
+    },
+    {
+      "typeName": "ISearch",
+      "data": {
+        "value": "搜索数据"
+      }
+    },
+    {
+      "typeName": "INavBar",
+      "data": {
+        "slots": [{
+          "name": "right",
+          "content": {
+            "comName": "ISearch",
+            "props": {
+              "value": "",
+              "iconPosition": "right",
+              "placeholder": "使用插槽"
+            },
+            "info": ""
+          }
+        }]
       }
     }
   ]

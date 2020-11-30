@@ -25,7 +25,18 @@ export interface ModelInterface {
 // json配置文件中的 item
 export interface ComItemProps {
   typeName: string
-  data?: any
+  data?: ComItemPropsData
+}
+
+export interface ComItemPropsData {
+  slots: ComSlotsDataItem[]
+  [index: string]: any
+}
+
+// json配置文件中，slots相关数据
+export interface ComSlotsDataItem {
+  name?: string
+  content?: any
 }
 
 export interface ComJsonData {

@@ -5,10 +5,11 @@
         <my-svg iconClass="input" class="i-search-content_left-box_icon" :style="orderStyleObj"></my-svg>
         <i-input
           type="text"
-          v-model="currentValue"
+          @input="handleInput"
           v-bind="$attrs"
           v-on="$listeners"
           class="i-search-content_left-box_input"
+          :value="currentValue"
           @enter="handleSearch"
         ></i-input>
         <my-svg
@@ -41,7 +42,7 @@ type positionType = keyof typeof IconPosition
     IInput
   }
 })
-export default class MyInput extends Vue {
+export default class MySearch extends Vue {
   @Prop({ type: String, default: '' }) value!: string
   @Prop({ type: Boolean, default: false }) showAction!: boolean
   @Prop({
@@ -55,6 +56,10 @@ export default class MyInput extends Vue {
 
   private currentValue = ''
   private showXIcon = false
+
+  created() {
+    console.log(this)
+  }
 
   get orderStyleObj() {
     return {
@@ -70,10 +75,12 @@ export default class MyInput extends Vue {
     }
   }
 
+  @Emit('input')
   deleteValue() {
     this.currentValue = ''
     this.showXIcon = false
-    ;(this.$listeners.input as Function)(this.currentValue)
+    return this.currentValue
+    // ;(this.$listeners.input as Function)(this.currentValue)
   }
 
   @Emit('cancle')
@@ -83,6 +90,7 @@ export default class MyInput extends Vue {
 
   @Emit('search')
   handleSearch(v: string) {
+    console.log('aaa')
     return v
   }
 
@@ -90,6 +98,11 @@ export default class MyInput extends Vue {
   onWatchValue(val: string) {
     this.showXIcon = val ? true : false
     this.currentValue = val
+  }
+
+  // @Emit('input')
+  handleInput(v: string) {
+    this.currentValue = v
   }
 }
 </script>
