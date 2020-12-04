@@ -3,7 +3,8 @@
   <button :class="buttonClass" :type="nativeType" :style="colorStyle" @click="handleClick">
     <div class="i-button-content_box" :class="{ [`i-button-content_box_${iconPosition}`]: true }">
       <my-svg :iconClass="icon" v-if="icon" class="box_icon"></my-svg>
-      <span class="box_text"><slot></slot></span>
+      <span class="box_text" v-if="content">{{ content }}</span>
+      <span class="box_text" v-else><slot></slot></span>
     </div>
   </button>
 </template>
@@ -21,6 +22,7 @@ export default class IButton extends Vue {
   @Prop({ type: String as PropType<ButtonType>, default: 'primary' }) type!: ButtonType
   @Prop({ type: String as PropType<ButtonSize>, default: 'normal' }) size!: ButtonSize
   @Prop({ type: String as PropType<NativeType>, default: 'button' }) nativeType!: NativeType
+  @Prop({ type: String, default: '' }) content!: string
   @Prop({ type: String, default: '' }) color!: string
   @Prop({ type: String, default: '' }) icon!: string
   @Prop({

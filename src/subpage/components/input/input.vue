@@ -31,6 +31,7 @@ export default class IInput extends Mixins(EmitterMixins) {
 
   private currentValue = this.value
 
+  // 触发所有监听了input事件组件，因为父组件传入了$listeners
   @Emit('input')
   handleInput(e: Event) {
     const value = (e.target as HTMLInputElement).value

@@ -29,14 +29,24 @@ export interface ComItemProps {
 }
 
 export interface ComItemPropsData {
-  slots: ComSlotsDataItem[]
+  props?: any
+  slots?: ComSlotsDataItem[]
+  events?: string[]
   [index: string]: any
 }
 
 // json配置文件中，slots相关数据
 export interface ComSlotsDataItem {
   name?: string
-  content?: any
+  contentCom?: ContentComData
+  info?: string
+}
+
+export interface ContentComData {
+  comName: string
+  props?: any
+  events?: string[]
+  [index: string]: any
 }
 
 export interface ComJsonData {

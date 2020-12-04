@@ -54,11 +54,11 @@ export default class MySearch extends Vue {
   })
   iconPosition!: positionType
 
-  private currentValue = ''
+  private currentValue = this.value
   private showXIcon = false
 
   created() {
-    console.log(this)
+    console.log(this.value, this.currentValue)
   }
 
   get orderStyleObj() {
@@ -80,7 +80,6 @@ export default class MySearch extends Vue {
     this.currentValue = ''
     this.showXIcon = false
     return this.currentValue
-    // ;(this.$listeners.input as Function)(this.currentValue)
   }
 
   @Emit('cancle')
@@ -90,17 +89,15 @@ export default class MySearch extends Vue {
 
   @Emit('search')
   handleSearch(v: string) {
-    console.log('aaa')
     return v
   }
 
-  @Watch('currentValue')
+  @Watch('currentValue', { immediate: true })
   onWatchValue(val: string) {
     this.showXIcon = val ? true : false
     this.currentValue = val
   }
 
-  // @Emit('input')
   handleInput(v: string) {
     this.currentValue = v
   }

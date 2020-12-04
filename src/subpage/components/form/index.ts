@@ -2,7 +2,7 @@
  * @description 引入form
  */
 
-import IFrom from './form.vue'
+import IForm from './form.vue'
 import IFormItem from './form-item.vue'
 
-export { IFrom, IFormItem }
+export { IForm, IFormItem }

@@ -4,42 +4,49 @@
     {
       "typeName": "IInput",
       "data": {
-        "value": "这是测试数据"
+        "props": {
+          "value": "这是测试数据"
+        },
+        "events": []
       }
     },
     {
       "typeName": "IButton",
       "data": {
-        "type": "info",
-        "size": "small",
-        "slots": {
-          "default": {
-            "content": "按钮"
-          }
+        "props": {
+          "type": "info",
+          "size": "small",
+          "content": "按钮"
         }
       }
     },
     {
       "typeName": "ISearch",
       "data": {
-        "value": "搜索数据"
+        "props": {
+          "value": "测试搜索"
+        },
+        "events": ["search"]
       }
     },
     {
       "typeName": "INavBar",
       "data": {
-        "slots": [{
-          "name": "right",
-          "content": {
-            "comName": "ISearch",
-            "props": {
-              "value": "",
-              "iconPosition": "right",
-              "placeholder": "使用插槽"
-            },
-            "info": ""
+        "slots": [
+          {
+            "name": "right",
+            "contentCom": {
+              "comName": "ISearch",
+              "props": {
+                "value": "",
+                "iconPosition": "right",
+                "placeholder": "使用插槽",
+                "showAction": true
+              },
+              "events": ["cancle", "search"]
+            }
           }
-        }]
+        ]
       }
     }
   ]
