@@ -22,6 +22,9 @@ const produceEvents = function(events: string[], typeName: string) {
   return paramsOn
 }
 
+/**
+ * @description 处理配置文件中的slots
+ */
 const generateSlots = function(h: CreateElement, slots: ComSlotsDataItem[]) {
   const scopedSlots = Object.create(null)
   slots.forEach(item => {
@@ -30,6 +33,7 @@ const generateSlots = function(h: CreateElement, slots: ComSlotsDataItem[]) {
 
     scopedSlots[name] = function(props: any) {
       const contentCom = item.contentCom
+      if (!contentCom || contentCom.length === 0) return slotInfo
       return contentCom.map(content => {
         const childSlot = content.slots ? content.slots : [] // 子节点又有slot
         const slotProps = content.props ? content.props : {}
@@ -60,8 +64,6 @@ const generateSlots = function(h: CreateElement, slots: ComSlotsDataItem[]) {
           }
           slotsParams.on = Object.assign(slotsParams.on, produceEvents(events, ComName))
           return <ComName {...slotsParams}></ComName>
-        } else {
-          return slotInfo
         }
       })
     }
