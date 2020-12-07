@@ -2,12 +2,8 @@
   <div class="visual-edit-right">
     <div class="card-container">
       <a-tabs default-active-key="1" @change="handleChange" type="card">
-        <a-tab-pane key="1" tab="基础">
-          Content of Tab Pane 1
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="高级">
-          Content of Tab Pane 2
-        </a-tab-pane>
+        <a-tab-pane key="1" tab="基础"> ceshi </a-tab-pane>
+        <a-tab-pane key="2" tab="高级"> Content of Tab Pane 2 </a-tab-pane>
       </a-tabs>
     </div>
   </div>
@@ -26,22 +22,26 @@ export default class VisualRightCom extends Vue {
 
 <style lang="scss" scoped>
 .visual-edit-right {
-  padding: 0px 10px 10px 15px;
   user-select: none;
   height: auto;
+  width: 100%;
   .card-container {
     background: #fff;
     overflow: hidden;
     /deep/ .ant-tabs-nav {
-      // width: 50%;
+      width: 99%;
       .ant-tabs-tab-active {
         background: white !important;
       }
       .ant-tabs-tab {
-        // width: 100%;
+        width: 50%;
         border: none;
         background: #f7f7f7;
+        text-align: center;
       }
+    }
+    /deep/ .ant-tabs-top-content {
+      padding: 0 20px 0 20px;
     }
   }
 }

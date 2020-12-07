@@ -52,7 +52,7 @@ const generateSlots = function(h: CreateElement, slots: ComSlotsDataItem[]) {
           if (propsValue !== undefined) {
             slotsParams.on.input = function(str: string) {
               propsValue = str
-              console.log('插槽内的input', str)
+              console.log('插槽内的input', str, propsValue)
             }
           }
         }

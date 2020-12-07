@@ -7,6 +7,7 @@ import { SelectedComData, ComJsonData, ComItemProps } from '../utils/index'
 import { PropType } from 'vue'
 import componentJsonData from './index.json'
 import { PropValidator } from 'vue/types/options'
+import './index.scss'
 
 const prefixClass = 'subpage'
 

@@ -12,12 +12,12 @@
       <a-col :span="5" class="visual-main-left">
         <visual-left-com :menuData="utilsData" @itemClick="itemClick"></visual-left-com>
       </a-col>
-      <a-col :span="13" class="visual-main-mid">
+      <a-col :span="11" class="visual-main-mid">
         <div class="visual-simulate">
           <iframe ref="subIframe" src="/subpage.html" width="100%" height="100%"></iframe>
         </div>
       </a-col>
-      <a-col :span="6" class="visual-main-right">
+      <a-col :span="8" class="visual-main-right">
         <div class="right-box">
           <visual-right-com></visual-right-com>
         </div>
@@ -124,7 +124,7 @@ export default class Visual extends Vue {
       }
     }
     .visual-main-right {
-      min-width: 290px;
+      min-width: 400px;
       box-shadow: 0px 0px 2px #ccc;
       background: white;
     }

@@ -51,6 +51,7 @@ export default class IFormItem extends Mixins(EmitterMixins) {
     })
 
     this.$on('on-change', () => {
+      console.log(this.formModel.model)
       this.validate('change')
     })
   }
