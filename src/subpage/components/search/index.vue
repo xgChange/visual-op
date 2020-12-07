@@ -57,10 +57,6 @@ export default class MySearch extends Vue {
   private currentValue = this.value
   private showXIcon = false
 
-  created() {
-    console.log(this.value, this.currentValue)
-  }
-
   get orderStyleObj() {
     return {
       order: this.iconPosition === 'left' ? '' : IconPosition[this.iconPosition],

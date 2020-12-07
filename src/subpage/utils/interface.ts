@@ -37,9 +37,10 @@ export interface ComItemPropsData {
 
 // json配置文件中，slots相关数据
 export interface ComSlotsDataItem {
-  name?: string
-  contentCom?: ContentComData
+  name: string
+  contentCom: ContentComData[]
   info?: string
+  [index: string]: any
 }
 
 export interface ContentComData {

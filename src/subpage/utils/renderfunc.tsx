@@ -22,39 +22,48 @@ const produceEvents = function(events: string[], typeName: string) {
   return paramsOn
 }
 
-/**
- * @description 处理配置文件中的slots项
- */
-const produceSlotData = function(h: CreateElement, slots: ComSlotsDataItem[]) {
-  if (!slots) return {}
+const generateSlots = function(h: CreateElement, slots: ComSlotsDataItem[]) {
   const scopedSlots = Object.create(null)
-  slots.forEach((item: ComSlotsDataItem) => {
-    if (item.name) {
-      scopedSlots[item.name] = function() {
-        let value = item.contentCom?.props.value
-        const typeName = item.name ? item.name : ''
-        const events = item.contentCom?.events ? item.contentCom?.events : []
-        let params = Object.create(null)
-        params = {
+  slots.forEach(item => {
+    const name = item.name
+    const slotInfo = item.info ? item.info : ''
+
+    scopedSlots[name] = function(props: any) {
+      const contentCom = item.contentCom
+      return contentCom.map(content => {
+        const childSlot = content.slots ? content.slots : [] // 子节点又有slot
+        const slotProps = content.props ? content.props : {}
+        const ComName = content.comName
+        const events = content.events ? content.events : []
+        let propsValue = slotProps.value
+        let slotsParams = Object.create(null)
+        slotsParams = {
           props: {
-            ...item.contentCom?.props
+            ...slotProps
           },
-          on: {
-            input: (str: string) => {
+          on: {}
+        }
+        // 实现input方法，v-model
+        if (hasVModelComponent.includes(ComName)) {
+          if (propsValue !== undefined) {
+            slotsParams.on.input = function(str: string) {
+              propsValue = str
               console.log('插槽内的input', str)
-              if (item.contentCom && hasVModelComponent.includes(item.contentCom.comName)) {
-                if (value !== undefined) {
-                  value = str
-                }
-              }
             }
           }
         }
-        params.on = Object.assign(params.on, produceEvents(events, typeName))
-        return h(item.contentCom?.comName, {
-          ...params
-        })
-      }
+        if (ComName) {
+          // 递归 slot
+          if (childSlot.length > 0) {
+            const childScoped = generateSlots(h, childSlot)
+            slotsParams.scopedSlots = childScoped
+          }
+          slotsParams.on = Object.assign(slotsParams.on, produceEvents(events, ComName))
+          return <ComName {...slotsParams}></ComName>
+        } else {
+          return slotInfo
+        }
+      })
     }
   })
   return scopedSlots
@@ -68,28 +77,28 @@ export default Vue.extend({
     }
   },
   render: (h: CreateElement, ctx: RenderContext<FuncProp>) => {
-    console.log('ddd', ctx.props.componentData, ctx)
     const { data, typeName } = ctx.props.componentData
-    const scopedSlots = data && data.slots ? produceSlotData(h, data.slots) : {}
+    const scopedSlots = data && data.slots ? generateSlots(h, data.slots) : {}
     const props = data && data.props ? data.props : {}
     const events = data && data.events ? data.events : []
-
-    const params = {
+    let params = Object.create(null)
+    params = {
       props: {
         ...props
       },
-      on: {
-        input: function(str: string) {
-          if (hasVModelComponent.includes(typeName)) {
-            if (data) {
-              data.value = str
-              console.log('组件内的input', data.value)
-            }
-          }
-        }
-      },
-      scopedSlots: scopedSlots
+      scopedSlots,
+      on: {}
     }
+    // 实现input方法，v-model
+    if (hasVModelComponent.includes(typeName)) {
+      if (props.value !== undefined) {
+        params.on.input = function(str: string) {
+          props.value = str
+          console.log('父组件input', str)
+        }
+      }
+    }
+
     params.on = Object.assign(params.on, produceEvents(events, typeName))
     const ComTypeName = typeName
     return <ComTypeName {...params}></ComTypeName>
