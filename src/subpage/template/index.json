@@ -46,7 +46,7 @@
                 "comName": "ISearch",
                 "props": {
                   "value": "",
-                  "iconPosition": "right",
+                  "iconPosition": "left",
                   "placeholder": "使用插槽",
                   "showAction": true
                 },

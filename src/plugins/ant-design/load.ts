@@ -3,7 +3,7 @@
  */
 
 import Vue from 'vue'
-import { Button, Layout, Menu, Icon, FormModel, Input, Row, Col } from 'ant-design-vue'
-;[Button, Layout, Menu, Icon, FormModel, Input, Row, Col].forEach(item => {
+import { Button, Layout, Menu, Icon, FormModel, Input, Row, Col, Tabs } from 'ant-design-vue'
+;[Button, Layout, Menu, Icon, FormModel, Input, Row, Col, Tabs].forEach(item => {
   Vue.use(item)
 })

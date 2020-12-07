@@ -47,6 +47,7 @@ export interface ContentComData {
   comName: string
   props?: any
   events?: string[]
+  slots?: any
   [index: string]: any
 }
 

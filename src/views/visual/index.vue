@@ -12,13 +12,15 @@
       <a-col :span="5" class="visual-main-left">
         <visual-left-com :menuData="utilsData" @itemClick="itemClick"></visual-left-com>
       </a-col>
-      <a-col :span="10" class="visual-main-mid">
+      <a-col :span="13" class="visual-main-mid">
         <div class="visual-simulate">
           <iframe ref="subIframe" src="/subpage.html" width="100%" height="100%"></iframe>
         </div>
       </a-col>
-      <a-col :span="9" class="visual-main-right">
-        <div class="right-box">right box</div>
+      <a-col :span="6" class="visual-main-right">
+        <div class="right-box">
+          <visual-right-com></visual-right-com>
+        </div>
       </a-col>
     </a-row>
   </div>
@@ -28,11 +30,12 @@
 import { Vue, Component } from 'vue-property-decorator'
 import VisualLeftCom from './components/visual-left.vue'
 import { utilsData } from '@/mock/data/visual'
-import SubPage from '@/subpage/index'
+import VisualRightCom from './components/visual-right.vue'
 
 @Component({
   components: {
-    VisualLeftCom
+    VisualLeftCom,
+    VisualRightCom
   }
 })
 export default class Visual extends Vue {
@@ -119,6 +122,11 @@ export default class Visual extends Vue {
         box-shadow: 0 0 10px #ccc;
         border-radius: 10px;
       }
+    }
+    .visual-main-right {
+      min-width: 290px;
+      box-shadow: 0px 0px 2px #ccc;
+      background: white;
     }
   }
 }
