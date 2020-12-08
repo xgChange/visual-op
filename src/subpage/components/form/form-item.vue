@@ -41,17 +41,14 @@ export default class IFormItem extends Mixins(EmitterMixins) {
     return this.formModel.model[this.prop]
   }
 
-  set fieldVal(v) {
-    this.formModel.model[this.prop] = v
-  }
-
   setRules() {
-    this.$on('on-blur', () => {
+    this.$on('on-blur', (v: string) => {
+      this.formModel.model[this.prop] = v
       this.validate('blur')
     })
 
-    this.$on('on-change', () => {
-      console.log(this.formModel.model)
+    this.$on('on-change', (v: string) => {
+      this.formModel.model[this.prop] = v
       this.validate('change')
     })
   }
@@ -74,10 +71,9 @@ export default class IFormItem extends Mixins(EmitterMixins) {
     const model = {} as ObjectPropStr
     const fieldRules = this.getFieldRules(trigger)
     if (fieldRules.length === 0) return
-
     this.$nextTick(() => {
       descriptor[this.prop] = fieldRules
-      model[this.prop] = this.fieldVal
+      model[this.prop] = this.formModel.model[this.prop]
       const validator = new AValidator(descriptor)
       validator.validate(model, {}, (err: ErrorList) => {
         this.validateStatus = err ? 'error' : 'success'
@@ -90,7 +86,7 @@ export default class IFormItem extends Mixins(EmitterMixins) {
   reset() {
     this.validateStatus = ''
     this.errorMsg = ''
-    this.fieldVal = this.initData
+    this.formModel.model[this.prop] = this.initData
   }
 
   beforeDestroy() {

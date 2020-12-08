@@ -36,7 +36,7 @@ export default class IInput extends Mixins(EmitterMixins) {
   handleInput(e: Event) {
     const value = (e.target as HTMLInputElement).value
     this.currentValue = value
-    this.dispatch('IFormItem', 'on-change')
+    this.dispatch('IFormItem', 'on-change', this.currentValue)
     return value
   }
 
@@ -47,7 +47,7 @@ export default class IInput extends Mixins(EmitterMixins) {
 
   @Emit('onBlur')
   handleBlur() {
-    this.dispatch('IFormItem', 'on-blur')
+    this.dispatch('IFormItem', 'on-blur', this.currentValue)
     return this.currentValue
   }
 

@@ -17,6 +17,7 @@
           "type": "info",
           "size": "small"
         },
+        "events": ["click"],
         "slots": [
           {
             "name": "default",
@@ -73,6 +74,7 @@
             "pass": [{ "required": true, "message": "密码不能为空", "trigger": "change" }]
           }
         },
+        "events": ["onPrimarySubmit"],
         "slots": [
           {
             "name": "default",
@@ -116,6 +118,15 @@
                     ]
                   }
                 ]
+              },
+              {
+                "comName": "IButton",
+                "props": {
+                  "type": "info",
+                  "size": "small",
+                  "nativeType": "submit",
+                  "content": "提交"
+                }
               }
             ]
           }
