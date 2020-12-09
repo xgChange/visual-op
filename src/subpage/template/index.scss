@@ -1,4 +1,10 @@
 .subpage-template {
   font-size: 12px;
-  border: 1px solid red;
+  // border: 1px solid red;
+  &-template-component {
+  }
+}
+
+.subpage-dashBorder {
+  border: 0.5px dashed red;
 }

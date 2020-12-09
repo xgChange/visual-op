@@ -15,6 +15,8 @@ const prefixClass = 'subpage'
 export default class ComTemplate extends Vue {
   @Prop({ type: Array as PropType<SelectedComData[]> }) allComponentsData!: SelectedComData[]
 
+  hasDashBorder = false
+
   // 从json找组件的data
   getComponentData(name: string) {
     const jsonData: ComJsonData = JSON.parse(JSON.stringify(componentJsonData))
@@ -38,11 +40,27 @@ export default class ComTemplate extends Vue {
     }
   }
 
+  mouseEvent(e: Event, flag: boolean) {
+    const target = e.currentTarget
+    if (target) {
+      this.hasDashBorder = flag
+    }
+  }
+
   render() {
     return (
       <div class={`${prefixClass}-template`}>
         {this.allComponentsData.map(item => (
-          <TemRender {...this.getComponentProps(item)}></TemRender>
+          <div
+            class={{
+              [`${prefixClass}-template-${item.name}`]: true,
+              [`${prefixClass}-dashBorder`]: this.hasDashBorder
+            }}
+            onmouseenter={(e: Event) => this.mouseEvent(e, true)}
+            onmouseleave={(e: Event) => this.mouseEvent(e, false)}
+          >
+            <TemRender {...this.getComponentProps(item)}></TemRender>
+          </div>
         ))}
       </div>
     )
