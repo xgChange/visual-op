@@ -31,6 +31,7 @@ import { Vue, Component } from 'vue-property-decorator'
 import VisualLeftCom from './components/visual-left.vue'
 import { utilsData } from '@/mock/data/visual'
 import VisualRightCom from './components/visual-right.vue'
+import { ComItemProps } from '@/subpage/utils/index'
 
 @Component({
   components: {
@@ -44,6 +45,11 @@ export default class Visual extends Vue {
 
   mounted() {
     window.$editor = this
+    // 通过postmessage，iframe组件向父组件传值
+    window.addEventListener('message', e => {
+      const { childData } = e.data
+      this.handleChildData(childData)
+    })
   }
 
   onExport() {
@@ -63,8 +69,11 @@ export default class Visual extends Vue {
   }
 
   itemClick(id: number, comName: string) {
-    // console.log(this.$subpage.)
     this.$subpage.$emit('on-message', id, comName)
+  }
+
+  handleChildData(childData: ComItemProps) {
+    console.log(childData)
   }
 }
 </script>

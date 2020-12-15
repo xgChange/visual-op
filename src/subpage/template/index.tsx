@@ -15,7 +15,7 @@ const prefixClass = 'subpage'
 export default class ComTemplate extends Vue {
   @Prop({ type: Array as PropType<SelectedComData[]> }) allComponentsData!: SelectedComData[]
 
-  hasDashBorder = false
+  selectedComIndex = -1
 
   // 从json找组件的data
   getComponentData(name: string) {
@@ -40,24 +40,42 @@ export default class ComTemplate extends Vue {
     }
   }
 
-  mouseEvent(e: Event, flag: boolean) {
+  /**
+   * @description 处理鼠标移动事件
+   * @param e Event
+   * @param index 索引
+   * @param eventName 事件名
+   * @param item json中的数据
+   */
+  mouseEvent(e: Event, index: number, eventName: string, item?: SelectedComData) {
     const target = e.currentTarget
     if (target) {
-      this.hasDashBorder = flag
+      const dataIndex = (target as HTMLElement).dataset.index
+      if (dataIndex === `${index}`) {
+        if (eventName === 'leave') {
+          this.selectedComIndex = -1
+          return
+        }
+        this.selectedComIndex = index
+        if (item) {
+          this.$emit('onSelectedCom', this.getComponentData(item.name))
+        }
+      }
     }
   }
 
   render() {
     return (
       <div class={`${prefixClass}-template`}>
-        {this.allComponentsData.map(item => (
+        {this.allComponentsData.map((item, index) => (
           <div
             class={{
               [`${prefixClass}-template-${item.name}`]: true,
-              [`${prefixClass}-dashBorder`]: this.hasDashBorder
+              [`${prefixClass}-dashBorder`]: this.selectedComIndex === index
             }}
-            onmouseenter={(e: Event) => this.mouseEvent(e, true)}
-            onmouseleave={(e: Event) => this.mouseEvent(e, false)}
+            data-index={index}
+            onmouseenter={(e: Event) => this.mouseEvent(e, index, 'enter', item)}
+            onmouseleave={(e: Event) => this.mouseEvent(e, index, 'leave')}
           >
             <TemRender {...this.getComponentProps(item)}></TemRender>
           </div>
