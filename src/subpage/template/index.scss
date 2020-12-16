@@ -1,5 +1,8 @@
 .subpage-template {
   font-size: 12px;
+  &-common {
+    display: inline-block;
+  }
 }
 
 .subpage-dashBorder {

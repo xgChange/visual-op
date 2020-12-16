@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/ant-design/index'
 import './assets/styles/global.scss'
 import '@/components/svg/index.ts' // 引入svg组件
+import Tips from '@/components/tips/index'
 
 // mock接口
 import './mock'
@@ -16,7 +17,7 @@ import './permission.ts'
 import Axios from 'axios'
 Vue.prototype.$Axios = Axios
 Vue.config.productionTip = false
-
+Vue.prototype.$tips = Tips
 new Vue({
   router,
   store,

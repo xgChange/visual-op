@@ -3,6 +3,13 @@ import ComTemplate from './template/index'
 import { SelectedComData, ComItemProps } from '@/subpage/utils/index'
 import { ComponentsKeys } from '@/subpage/plugin/index'
 
+interface PostData {
+  name: string
+  childData: ComItemProps
+  eleCoordinate?: any
+  [index: string]: any
+}
+
 @Component
 export default class Subpage extends Vue {
   private $parentEditor = {} as Vue
@@ -29,10 +36,15 @@ export default class Subpage extends Vue {
   }
 
   // 通过postmessage，iframe组件向父组件传值
-  onSelectedCom(item: ComItemProps) {
+  onSelectedCom(name: string, item: ComItemProps, eleCoordinate: any) {
+    const postData: PostData = {
+      name,
+      childData: item
+    }
+    name === 'enter' ? (postData['eleCoordinate'] = eleCoordinate) : postData
     window.parent.postMessage(
       {
-        childData: item
+        ...postData
       },
       '*'
     )

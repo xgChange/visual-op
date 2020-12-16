@@ -51,14 +51,22 @@ export default class ComTemplate extends Vue {
     const target = e.currentTarget
     if (target) {
       const dataIndex = (target as HTMLElement).dataset.index
+      const { left, top, width } = (target as HTMLElement).getBoundingClientRect()
+      const eleCoordinate = {
+        eleX: left + width / 2,
+        eleY: top
+      }
       if (dataIndex === `${index}`) {
         if (eventName === 'leave') {
           this.selectedComIndex = -1
+          if (item) {
+            this.$emit('onSelectedCom', 'leave', this.getComponentData(item.name))
+          }
           return
         }
         this.selectedComIndex = index
         if (item) {
-          this.$emit('onSelectedCom', this.getComponentData(item.name))
+          this.$emit('onSelectedCom', 'enter', this.getComponentData(item.name), eleCoordinate)
         }
       }
     }
@@ -75,7 +83,7 @@ export default class ComTemplate extends Vue {
             }}
             data-index={index}
             onmouseenter={(e: Event) => this.mouseEvent(e, index, 'enter', item)}
-            onmouseleave={(e: Event) => this.mouseEvent(e, index, 'leave')}
+            onmouseleave={(e: Event) => this.mouseEvent(e, index, 'leave', item)}
           >
             <TemRender {...this.getComponentProps(item)}></TemRender>
           </div>
