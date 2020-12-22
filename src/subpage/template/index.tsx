@@ -8,12 +8,14 @@ import { PropType } from 'vue'
 import componentJsonData from './index.json'
 import { PropValidator } from 'vue/types/options'
 import './index.scss'
+import { Tooltip } from 'ant-design-vue'
 
 const prefixClass = 'subpage'
 
 @Component
 export default class ComTemplate extends Vue {
   @Prop({ type: Array as PropType<SelectedComData[]> }) allComponentsData!: SelectedComData[]
+  @Prop({ type: Boolean, default: false }) hasParentEditor!: boolean
 
   selectedComIndex = -1
 
@@ -51,25 +53,18 @@ export default class ComTemplate extends Vue {
     const target = e.currentTarget
     if (target) {
       const dataIndex = (target as HTMLElement).dataset.index
-      const { left, top, width } = (target as HTMLElement).getBoundingClientRect()
-      const eleCoordinate = {
-        eleX: left + width / 2,
-        eleY: top
-      }
       if (dataIndex === `${index}`) {
         if (eventName === 'leave') {
           this.selectedComIndex = -1
-          if (item) {
-            this.$emit('onSelectedCom', 'leave', this.getComponentData(item.name))
-          }
           return
         }
         this.selectedComIndex = index
-        if (item) {
-          this.$emit('onSelectedCom', 'enter', this.getComponentData(item.name), eleCoordinate)
-        }
       }
     }
+  }
+
+  handleClick(item: SelectedComData) {
+    this.$emit('onTipsClick', this.getComponentData(item.name))
   }
 
   render() {
@@ -79,13 +74,22 @@ export default class ComTemplate extends Vue {
           <div
             class={{
               [`${prefixClass}-template-${item.name}`]: true,
-              [`${prefixClass}-dashBorder`]: this.selectedComIndex === index
+              [`${prefixClass}-dashBorder`]: this.selectedComIndex === index && this.hasParentEditor
             }}
             data-index={index}
             onmouseenter={(e: Event) => this.mouseEvent(e, index, 'enter', item)}
             onmouseleave={(e: Event) => this.mouseEvent(e, index, 'leave', item)}
           >
-            <TemRender {...this.getComponentProps(item)}></TemRender>
+            {this.hasParentEditor ? (
+              <Tooltip>
+                <template slot="title">
+                  <span onClick={() => this.handleClick(item)}>编辑模块</span>
+                </template>
+                <TemRender {...this.getComponentProps(item)}></TemRender>
+              </Tooltip>
+            ) : (
+              <TemRender {...this.getComponentProps(item)}></TemRender>
+            )}
           </div>
         ))}
       </div>

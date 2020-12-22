@@ -2,7 +2,9 @@
   <div class="visual-edit-right">
     <div class="card-container">
       <a-tabs default-active-key="1" @change="handleChange" type="card">
-        <a-tab-pane key="1" tab="基础"> ceshi </a-tab-pane>
+        <a-tab-pane key="1" tab="基础">
+          <my-list-panel></my-list-panel>
+        </a-tab-pane>
         <a-tab-pane key="2" tab="高级"> Content of Tab Pane 2 </a-tab-pane>
       </a-tabs>
     </div>
@@ -11,8 +13,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import MyListPanel from './components/listpanel.vue'
 
-@Component
+@Component({
+  components: {
+    MyListPanel
+  }
+})
 export default class VisualRightCom extends Vue {
   handleChange(activeKey: string) {
     console.log('ceshi', activeKey)

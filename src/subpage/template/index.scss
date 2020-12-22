@@ -8,3 +8,18 @@
 .subpage-dashBorder {
   border: 0.1px dashed #fe714b;
 }
+
+.ant-tooltip-arrow {
+  &::before {
+    background: white;
+  }
+}
+.ant-tooltip-inner {
+  background: white;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    color: #fe714b;
+  }
+}

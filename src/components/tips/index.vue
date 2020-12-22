@@ -9,10 +9,12 @@
     <div class="myTips-container-content">
       <span>{{ text }}</span>
     </div>
+    <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
+import { CreateElement, VNode } from 'vue'
 import { Vue, Component, Prop } from 'vue-property-decorator'
 interface XyObj {
   x: number
@@ -32,8 +34,10 @@ export default class MyTips extends Vue {
     }
   })
   xyObj!: XyObj
+  @Prop({ type: Function }) render!: (h: CreateElement) => VNode
 
   private isShow = false
+  private timer = 0
 
   get tipStyle() {
     return {
@@ -55,10 +59,13 @@ export default class MyTips extends Vue {
     const target = e.currentTarget
     if (target) {
       if (name === 'leave') {
+        clearTimeout(this.timer)
         this.close()
-        this.$emit('onClose', 'leave')
       } else {
-        this.$emit('onEnter', 'enter')
+        this.timer = setTimeout(() => {
+          this.isShow = true
+          // this.$emit('onEnter', 'enter')
+        }, 100)
       }
     }
   }

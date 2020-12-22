@@ -14,6 +14,7 @@ interface PostData {
 export default class Subpage extends Vue {
   private $parentEditor = {} as Vue
   private allComponentsData: SelectedComData[] = []
+  private hasParentEditor = false // 是否存在 $parentEditor
 
   created() {
     this.$on('on-message', (id: string, typeName: string) => {
@@ -32,19 +33,18 @@ export default class Subpage extends Vue {
   mounted() {
     window.$subpage = this
     this.$parentEditor = window.parent.$editor
-    ;(this.$parentEditor as any).iframeLoad()
+    if (this.$parentEditor) {
+      ;(this.$parentEditor as any).iframeLoad()
+      this.hasParentEditor = true
+    } else {
+      this.hasParentEditor = false
+    }
   }
 
-  // 通过postmessage，iframe组件向父组件传值
-  onSelectedCom(name: string, item: ComItemProps, eleCoordinate: any) {
-    const postData: PostData = {
-      name,
-      childData: item
-    }
-    name === 'enter' ? (postData['eleCoordinate'] = eleCoordinate) : postData
+  onTipsClick(item: ComItemProps) {
     window.parent.postMessage(
       {
-        ...postData
+        ...item
       },
       '*'
     )
@@ -53,10 +53,11 @@ export default class Subpage extends Vue {
   render() {
     const comProps = {
       props: {
-        allComponentsData: this.allComponentsData
+        allComponentsData: this.allComponentsData,
+        hasParentEditor: this.hasParentEditor
       },
       on: {
-        onSelectedCom: this.onSelectedCom
+        onTipsClick: this.onTipsClick
       }
     }
     return (

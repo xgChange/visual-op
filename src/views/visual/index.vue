@@ -42,14 +42,13 @@ import { ComItemProps } from '@/subpage/utils/index'
 export default class Visual extends Vue {
   private utilsData = utilsData
   private $subpage = {} as Vue
-  private a = {} as Vue
+  private tips = {} as Vue
 
   mounted() {
     window.$editor = this
     // 通过postmessage，iframe组件向父组件传值
     window.addEventListener('message', e => {
-      const { name, childData, eleCoordinate } = e.data
-      this.handleChildData(name, childData, eleCoordinate)
+      this.handleChildData(e.data)
     })
   }
 
@@ -81,31 +80,9 @@ export default class Visual extends Vue {
     this.$subpage.$emit('on-message', id, comName)
   }
 
-  // 处理iframe传过来的数据
-  handleChildData(name: string, childData: ComItemProps, eleCoordinate: any) {
-    if (name === 'enter' && eleCoordinate && this.iframeCoordinate) {
-      const { eleX, eleY } = eleCoordinate
-      const { iframeX, iframeY } = this.iframeCoordinate
-      const comX = eleX + iframeX
-      const comY = eleY + iframeY - 35
-      this.a = (this as any).$tips.open({
-        text: '编辑模块',
-        xyObj: {
-          x: comX,
-          y: comY
-        }
-      })
-    } else if (name === 'leave') {
-      // ;(this as any).$tips.close()
-
-      if (this.a) {
-        this.a.$on('onClose', (eventName: string) => {
-          if (name === 'leave' && eventName === 'leave') {
-            ;(this as any).$tips.close()
-          }
-        })
-      }
-    }
+  // 处理iframe里面tips传出来的数据
+  handleChildData(data: ComItemProps) {
+    console.log(data)
   }
 }
 </script>
