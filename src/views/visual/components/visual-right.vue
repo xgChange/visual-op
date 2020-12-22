@@ -3,7 +3,7 @@
     <div class="card-container">
       <a-tabs default-active-key="1" @change="handleChange" type="card">
         <a-tab-pane key="1" tab="基础">
-          <my-list-panel></my-list-panel>
+          <my-list-panel :listData="comPropsData"></my-list-panel>
         </a-tab-pane>
         <a-tab-pane key="2" tab="高级"> Content of Tab Pane 2 </a-tab-pane>
       </a-tabs>
@@ -12,8 +12,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import MyListPanel from './components/listpanel.vue'
+import { comPropsData } from '@/mock/data/com-data'
+import { ComItemProps } from '@/subpage/utils/index'
+import { PropType } from 'vue'
 
 @Component({
   components: {
@@ -21,6 +24,17 @@ import MyListPanel from './components/listpanel.vue'
   }
 })
 export default class VisualRightCom extends Vue {
+  @Prop({ type: Object as PropType<ComItemProps> }) listData!: ComItemProps
+
+  private comPropsData: any[] = []
+
+  @Watch('listData')
+  watchListData(v: ComItemProps) {
+    if (Object.keys(v).length !== 0) {
+      this.comPropsData = comPropsData.filter(item => item.name === v.typeName)
+    }
+  }
+
   handleChange(activeKey: string) {
     console.log('ceshi', activeKey)
   }

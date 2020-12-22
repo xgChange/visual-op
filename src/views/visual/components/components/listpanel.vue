@@ -1,11 +1,11 @@
 <!-- 列表panel -->
 <template>
   <div class="my-list-panel">
-    <div class="my-list-panel-container">
-      <div class="my-list-panel-container-box">
-        <div class="box-title">模块标题</div>
+    <div class="my-list-panel-container" v-for="item in listData" :key="item.name">
+      <div class="my-list-panel-container-box" v-for="(prop, index) in item.props" :key="index">
+        <div class="box-title">{{ prop.cnName }}</div>
         <div class="box-component">
-          <a-input />
+          <component :is="comKey(prop.comType)" :value="prop.value"></component>
         </div>
       </div>
     </div>
@@ -13,11 +13,29 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import MyRadio from '@/components/radio/index.vue'
 
-@Component
+enum ComponentType {
+  radio = 'MyRadio',
+  input = 'AInput',
+  palette = 'AInput'
+}
+
+type comType = keyof typeof ComponentType
+
+@Component({
+  components: {
+    MyRadio
+  }
+})
 export default class MyListPanel extends Vue {
   @Prop({ type: Array, default: () => [] }) listData!: []
+
+  // 动态切换需要填充的组件
+  comKey(type: comType) {
+    return ComponentType[type]
+  }
 }
 </script>
 
@@ -33,12 +51,17 @@ export default class MyListPanel extends Vue {
     &-box {
       display: flex;
       flex-direction: row;
+      padding-bottom: 10px;
       .box-title {
-        flex: 1;
+        flex: 2;
         line-height: 32px;
+        text-align: left;
       }
       .box-component {
         flex: 4;
+        /deep/ .ant-radio-wrapper {
+          width: 46%;
+        }
       }
     }
   }

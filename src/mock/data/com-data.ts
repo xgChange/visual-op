@@ -30,5 +30,28 @@ export const comPropsData = [
         comType: 'palette'
       }
     ]
+  },
+  {
+    name: 'IInput',
+    props: [
+      {
+        enName: 'value',
+        cnName: '输入框内的值',
+        value: '',
+        comType: 'input'
+      },
+      {
+        enName: 'placeholder',
+        cnName: '输入框占位',
+        value: '请输入文字',
+        comType: 'input'
+      },
+      {
+        enName: 'type',
+        cnName: '类型',
+        value: ['text', 'password', 'number'],
+        comType: 'radio'
+      }
+    ]
   }
 ]

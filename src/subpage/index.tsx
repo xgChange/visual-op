@@ -33,6 +33,7 @@ export default class Subpage extends Vue {
   mounted() {
     window.$subpage = this
     this.$parentEditor = window.parent.$editor
+    // 判断是否存在 $parentEditor
     if (this.$parentEditor) {
       ;(this.$parentEditor as any).iframeLoad()
       this.hasParentEditor = true

@@ -19,7 +19,7 @@
       </a-col>
       <a-col :span="8" class="visual-main-right">
         <div class="right-box">
-          <visual-right-com></visual-right-com>
+          <visual-right-com :listData="childData"></visual-right-com>
         </div>
       </a-col>
     </a-row>
@@ -43,12 +43,15 @@ export default class Visual extends Vue {
   private utilsData = utilsData
   private $subpage = {} as Vue
   private tips = {} as Vue
+  private childData = {} as ComItemProps
 
   mounted() {
     window.$editor = this
     // 通过postmessage，iframe组件向父组件传值
     window.addEventListener('message', e => {
-      this.handleChildData(e.data)
+      if (typeof e.data === 'object') {
+        this.handleChildData(e.data)
+      }
     })
   }
 
@@ -82,7 +85,7 @@ export default class Visual extends Vue {
 
   // 处理iframe里面tips传出来的数据
   handleChildData(data: ComItemProps) {
-    console.log(data)
+    this.childData = data
   }
 }
 </script>
