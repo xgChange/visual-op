@@ -19,7 +19,7 @@
       </a-col>
       <a-col :span="8" class="visual-main-right">
         <div class="right-box">
-          <visual-right-com :listData="childData"></visual-right-com>
+          <visual-right-com :comData="childData"></visual-right-com>
         </div>
       </a-col>
     </a-row>
@@ -32,6 +32,7 @@ import VisualLeftCom from './components/visual-left.vue'
 import { utilsData } from '@/mock/data/visual'
 import VisualRightCom from './components/visual-right.vue'
 import { ComItemProps } from '@/subpage/utils/index'
+import { ComponentsKeys } from '@/subpage/plugin/index'
 
 @Component({
   components: {
@@ -80,11 +81,16 @@ export default class Visual extends Vue {
   }
 
   itemClick(id: number, comName: string) {
-    this.$subpage.$emit('on-message', id, comName)
+    if (!ComponentsKeys.includes(comName)) {
+      this.$message.warning('没有这个组件')
+      return
+    }
+    this.$subpage.$emit('on-message', comName)
   }
 
   // 处理iframe里面tips传出来的数据
   handleChildData(data: ComItemProps) {
+    console.log(data)
     this.childData = data
   }
 }

@@ -24,6 +24,7 @@ export interface ModelInterface {
 
 // json配置文件中的 item
 export interface ComItemProps {
+  id: string
   typeName: string
   data?: ComItemPropsData
 }
@@ -60,4 +61,5 @@ export interface ComJsonData {
 export interface SelectedComData {
   name: string
   key: string
+  id: string
 }

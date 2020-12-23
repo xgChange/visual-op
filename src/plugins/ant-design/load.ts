@@ -7,3 +7,6 @@ import { Button, Layout, Menu, Icon, FormModel, Input, Row, Col, Tabs, Tooltip, 
 ;[Button, Layout, Menu, Icon, FormModel, Input, Row, Col, Tabs, Tooltip, Radio].forEach(item => {
   Vue.use(item)
 })
+
+import { message } from 'ant-design-vue'
+Vue.prototype.$message = message

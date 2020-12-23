@@ -1,7 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import ComTemplate from './template/index'
 import { SelectedComData, ComItemProps } from '@/subpage/utils/index'
-import { ComponentsKeys } from '@/subpage/plugin/index'
 
 interface PostData {
   name: string
@@ -17,12 +16,9 @@ export default class Subpage extends Vue {
   private hasParentEditor = false // 是否存在 $parentEditor
 
   created() {
-    this.$on('on-message', (id: string, typeName: string) => {
-      if (!ComponentsKeys.includes(typeName)) {
-        console.log('没有这个组件')
-        return
-      }
+    this.$on('on-message', (typeName: string) => {
       const obj: SelectedComData = {
+        id: `${Date.now()}-${Math.random()}`,
         key: typeName,
         name: typeName
       }

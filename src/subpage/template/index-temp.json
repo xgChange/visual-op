@@ -1,0 +1,137 @@
+{
+  "template": "",
+  "componentsData": [
+    {
+      "typeName": "IInput",
+      "data": {
+        "props": {
+          "value": "这是测试数据"
+        },
+        "events": []
+      }
+    },
+    {
+      "typeName": "IButton",
+      "data": {
+        "props": {
+          "type": "info",
+          "size": "small"
+        },
+        "events": ["click"],
+        "slots": [
+          {
+            "name": "default",
+            "contentCom": [],
+            "info": "测试按钮"
+          }
+        ]
+      }
+    },
+    {
+      "typeName": "ISearch",
+      "data": {
+        "props": {
+          "value": "测试搜索"
+        },
+        "events": ["search"]
+      }
+    },
+    {
+      "typeName": "INavBar",
+      "data": {
+        "slots": [
+          {
+            "name": "right",
+            "contentCom": [
+              {
+                "comName": "ISearch",
+                "props": {
+                  "value": "",
+                  "iconPosition": "left",
+                  "placeholder": "使用插槽",
+                  "showAction": true
+                },
+                "events": ["cancle", "search"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "typeName": "IForm",
+      "data": {
+        "props": {
+          "model": {
+            "user": "",
+            "pass": ""
+          },
+          "rules": {
+            "user": [
+              { "type": "string", "required": true, "message": "用户名不能为空", "trigger": "blur" },
+              { "min": 3, "max": 5, "message": "长度在3-5位", "trigger": "blur" }
+            ],
+            "pass": [{ "required": true, "message": "密码不能为空", "trigger": "change" }]
+          }
+        },
+        "events": ["onPrimarySubmit"],
+        "slots": [
+          {
+            "name": "default",
+            "contentCom": [
+              {
+                "comName": "IFormItem",
+                "props": {
+                  "label": "用户名",
+                  "prop": "user"
+                },
+                "slots": [
+                  {
+                    "name": "default",
+                    "contentCom": [
+                      {
+                        "comName": "IInput",
+                        "props": {
+                          "value": ""
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "comName": "IFormItem",
+                "props": {
+                  "label": "密码",
+                  "prop": "pass"
+                },
+                "slots": [
+                  {
+                    "name": "default",
+                    "contentCom": [
+                      {
+                        "comName": "IInput",
+                        "props": {
+                          "value": ""
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "comName": "IButton",
+                "props": {
+                  "type": "info",
+                  "size": "small",
+                  "nativeType": "submit",
+                  "content": "提交"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

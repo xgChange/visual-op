@@ -14,11 +14,15 @@ import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 @Component
 export default class MyRadio extends Vue {
   @Prop({ type: Array, default: () => [] }) value!: string[]
+  @Prop({ type: String, default: '' }) typeName!: string
 
   private model = this.value[0]
 
   onChange(v: any) {
-    this.$emit('radioChange', v.target.value)
+    this.$emit('radioChange', {
+      typeName: this.typeName,
+      data: v.target.value
+    })
   }
 }
 </script>

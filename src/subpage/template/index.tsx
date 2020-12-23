@@ -20,12 +20,13 @@ export default class ComTemplate extends Vue {
   selectedComIndex = -1
 
   // 从json找组件的data
-  getComponentData(name: string) {
+  getComponentData(id: string, name: string) {
     const jsonData: ComJsonData = JSON.parse(JSON.stringify(componentJsonData))
-    let componentData = jsonData.componentsData.find(item => item.typeName === name)
+    let componentData = jsonData.componentsData.find(item => item.id === id)
     if (!componentData) {
       componentData = {
-        typeName: name
+        typeName: name,
+        id
       }
     }
     return componentData
@@ -33,7 +34,7 @@ export default class ComTemplate extends Vue {
 
   // 分配组件的prop
   getComponentProps(item: SelectedComData) {
-    let componentData = this.getComponentData(item.name)
+    let componentData = this.getComponentData(item.id, item.name)
     componentData = componentData ? componentData : ({} as ComItemProps)
     return {
       props: {
@@ -64,7 +65,7 @@ export default class ComTemplate extends Vue {
   }
 
   handleClick(item: SelectedComData) {
-    this.$emit('onTipsClick', this.getComponentData(item.name))
+    this.$emit('onTipsClick', this.getComponentData(item.id, item.name))
   }
 
   render() {

@@ -14,13 +14,13 @@ export const comPropsData = [
       {
         enName: 'size',
         cnName: '按钮大小',
-        value: ['large', 'small', 'mini', 'normal'],
+        value: ['normal', 'small', 'mini', 'large'],
         comType: 'radio'
       },
       {
         enName: 'content',
         cnName: '按钮内文字',
-        value: '按钮',
+        value: '',
         comType: 'input'
       },
       {

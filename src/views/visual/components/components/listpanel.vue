@@ -5,7 +5,12 @@
       <div class="my-list-panel-container-box" v-for="(prop, index) in item.props" :key="index">
         <div class="box-title">{{ prop.cnName }}</div>
         <div class="box-component">
-          <component :is="comKey(prop.comType)" :value="prop.value"></component>
+          <component
+            :is="comKey(prop.comType)"
+            :typeName="prop.enName"
+            :value="prop.value"
+            @radioChange="handleRadioChange"
+          ></component>
         </div>
       </div>
     </div>
@@ -35,6 +40,10 @@ export default class MyListPanel extends Vue {
   // 动态切换需要填充的组件
   comKey(type: comType) {
     return ComponentType[type]
+  }
+
+  handleRadioChange(v: any) {
+    this.$emit('onRadioChange', v)
   }
 }
 </script>
