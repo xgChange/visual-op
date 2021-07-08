@@ -1,16 +1,20 @@
 <template>
-  <div>
-    这是home
-  </div>
+  <div>这是home{{ a() }}</div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
-  components: {}
+  components: {},
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  get a() {
+    return () => {
+      return 213
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss"></style>
