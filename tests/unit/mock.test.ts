@@ -1,11 +1,11 @@
-function forEach(items, callback) {
+function forEach(items: number[], callback: (n: number) => number) {
   for (let index = 0; index < items.length; index++) {
     callback(items[index])
   }
 }
 
 const mockCallback = jest.fn((x) => 42 + x)
-forEach([0, 1, 2, { a: 1 }], mockCallback)
+forEach([0, 1, 2], mockCallback)
 
 // 此 mock 函数被调用了两次
 test('t1', () => {
