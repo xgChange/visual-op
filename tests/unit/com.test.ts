@@ -2,14 +2,16 @@ import { shallowMount } from '@vue/test-utils'
 import HelloWorld from '../components/HelloWorld'
 
 describe('hello world', () => {
-  it('test', () => {
+  it('test', async () => {
     const wrapper = shallowMount(HelloWorld, {
       propsData: {
         myName: '123',
       },
     })
-    const btn = wrapper.find('#my_btn')
-    btn.trigger('click')
-    expect(wrapper.vm.$data.count).toBe(2)
+    const btn2 = wrapper.find('#my_btn')
+    const span1 = wrapper.find('.span1')
+    expect(span1.text()).toContain('1')
+    await btn2.trigger('click')
+    expect(span1.text()).toContain('2')
   })
 })

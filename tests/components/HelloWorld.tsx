@@ -1,10 +1,10 @@
-import { PropType, VNode } from 'vue'
+import { VNode } from 'vue'
 
 import * as tsx from 'vue-tsx-support'
 
 const HelloWorld = tsx.componentFactoryOf().create({
   props: {
-    myName: { type: String as PropType<'t1' | 't2'>, required: false, default: 'tt' },
+    myName: { type: String, required: false, default: 'tt' },
     info: { type: String, required: false },
   },
   data() {
@@ -23,6 +23,7 @@ const HelloWorld = tsx.componentFactoryOf().create({
         >
           点击
         </button>
+        <span class="span1">{this.count}</span>
         <span>hello world {this.myName}</span>
       </div>
     )

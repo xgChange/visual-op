@@ -328,7 +328,28 @@ export default {
 }
 ```
 
-4. case
+4. 加 ts-jest 支持
+
+```javascript
+// jest.config.ts
+export default {
+  transformIgnorePatterns: ['/node_modules/'],
+  preset: 'ts-jest',
+  globals: {
+    'ts-jest': {
+      // ts-jest configuration goes here
+      babelConfig: true,
+    },
+  },
+  transform: {
+    // ...
+    // 用 `ts-jest` 处理 `*.ts` 文件
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+}
+```
+
+5. case
 
 ```javascript
 import { mount } from '@vue/test-utils'
@@ -337,8 +358,17 @@ import HelloWorld from '../components/HelloWorld'
 describe('hello world', () => {
   const wrapper = mount(HelloWorld)
 
-  it('test', () => {
-    expect(wrapper.html()).toContain('<span>hello world </span>')
+  it('test', async () => {
+    const wrapper = shallowMount(HelloWorld, {
+      propsData: {
+        myName: '123',
+      },
+    })
+    const btn2 = wrapper.find('#my_btn')
+    const span1 = wrapper.find('.span1')
+    expect(span1.text()).toContain('1')
+    await btn2.trigger('click')
+    expect(span1.text()).toContain('2')
   })
 })
 ```
