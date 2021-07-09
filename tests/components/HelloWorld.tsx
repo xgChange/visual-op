@@ -4,7 +4,7 @@ import * as tsx from 'vue-tsx-support'
 
 const HelloWorld = tsx.componentFactoryOf().create({
   props: {
-    myName: { type: String, required: true },
+    myName: { type: String, required: false },
     info: { type: String, required: false },
   },
   render(): VNode {

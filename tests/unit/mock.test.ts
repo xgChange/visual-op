@@ -10,7 +10,7 @@ forEach([0, 1, 2], mockCallback)
 // 此 mock 函数被调用了两次
 test('t1', () => {
   console.log(mockCallback.mock.calls)
-  expect(mockCallback.mock.calls.length).toBe(4)
+  expect(mockCallback.mock.calls.length).toBe(3)
   // 第一次调用函数时的第一个参数是 0
   expect(mockCallback.mock.calls[0][0]).toBe(0)
 
