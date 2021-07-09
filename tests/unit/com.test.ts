@@ -1,10 +1,15 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import HelloWorld from '../components/HelloWorld'
 
 describe('hello world', () => {
-  const wrapper = mount(HelloWorld)
-
   it('test', () => {
-    expect(wrapper.html()).toContain('<span>hello world </span>')
+    const wrapper = shallowMount(HelloWorld, {
+      propsData: {
+        myName: '123',
+      },
+    })
+    const btn = wrapper.find('#my_btn')
+    btn.trigger('click')
+    expect(wrapper.vm.$data.count).toBe(2)
   })
 })

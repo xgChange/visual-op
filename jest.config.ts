@@ -8,6 +8,19 @@ const config: Config.InitialOptions = {
   testMatch: ['**/tests/**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', 'src/'],
   testEnvironment: 'jsdom',
+  transformIgnorePatterns: ['/node_modules/'],
+  preset: 'ts-jest',
+  globals: {
+    'ts-jest': {
+      // ts-jest configuration goes here
+      babelConfig: true,
+    },
+  },
+  transform: {
+    // ...
+    // 用 `ts-jest` 处理 `*.ts` 文件
+    '^.+\\.tsx?$': 'ts-jest',
+  },
 }
 
 export default config
