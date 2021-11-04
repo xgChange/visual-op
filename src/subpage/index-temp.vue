@@ -114,12 +114,12 @@
     .nav-bar-content {
       height: 32px;
       padding: 5px 0;
-      /deep/ .i-nav-bar-right {
+      ::v-deep .i-nav-bar-right {
         padding-right: 0;
         cursor: unset;
       }
       .nav-bar-content_iSearch {
-        /deep/ .i-input-search-box_input {
+        ::v-deep .i-input-search-box_input {
           width: rem(200);
         }
       }

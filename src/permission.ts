@@ -31,7 +31,7 @@ router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
         next()
       }
       // 动态添加标题
-      if (to.meta.title) {
+      if (to.meta?.title) {
         document.title = to.meta.title
       }
     }

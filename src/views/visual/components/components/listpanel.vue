@@ -68,7 +68,7 @@ export default class MyListPanel extends Vue {
       }
       .box-component {
         flex: 4;
-        /deep/ .ant-radio-wrapper {
+        ::v-deep .ant-radio-wrapper {
           width: 46%;
         }
       }

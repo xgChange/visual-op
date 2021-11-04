@@ -53,7 +53,7 @@ export default class VisualRightCom extends Vue {
   .card-container {
     background: #fff;
     overflow: hidden;
-    /deep/ .ant-tabs-nav {
+    ::v-deep .ant-tabs-nav {
       width: 99%;
       .ant-tabs-tab-active {
         background: white !important;
@@ -65,7 +65,7 @@ export default class VisualRightCom extends Vue {
         text-align: center;
       }
     }
-    /deep/ .ant-tabs-top-content {
+    ::v-deep .ant-tabs-top-content {
       padding: 0 20px 0 20px;
     }
   }
