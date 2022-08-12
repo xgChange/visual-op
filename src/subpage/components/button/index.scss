@@ -1,0 +1,57 @@
+@import '../../../assets/styles/_variables';
+
+@mixin buttonStyle($fontsize, $width, $height) {
+  font-size: $fontsize;
+  width: $width;
+  height: $height;
+  &:active {
+    box-shadow: inset 0px $height rgba(0, 0, 0, 0.1);
+  }
+}
+
+@mixin buttonColor($color) {
+  background: $color;
+}
+
+// button type
+.i-button-default {
+  color: #000;
+  @include buttonColor($default_color);
+}
+
+.i-button-primary {
+  color: #fff;
+  @include buttonColor($primary_color);
+}
+
+.i-button-info {
+  color: #fff;
+  @include buttonColor($info_color);
+}
+
+.i-button-warning {
+  color: #fff;
+  @include buttonColor($warning_color);
+}
+
+.i-button-danger {
+  color: #fff;
+  @include buttonColor($danger_color);
+}
+
+// button size
+.i-button-normal {
+  @include buttonStyle($normal_fontsize, $normal_width, $normal_height);
+}
+
+.i-button-small {
+  @include buttonStyle($small_fontsize, $small_width, $small_height);
+}
+
+.i-button-mini {
+  @include buttonStyle($mini_fontsize, $mini_width, $mini_height);
+}
+
+.i-button-large {
+  @include buttonStyle($large_fontsize, $large_width, $large_height);
+}

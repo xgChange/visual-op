@@ -2,10 +2,22 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './assets/css/global.scss'
+import './plugins/ant-design/index'
+import './assets/styles/global.scss'
+import '@/components/svg/index.ts' // 引入svg组件
+import Tips from '@/components/tips/index'
 
+// mock接口
+import './mock'
+
+// 权限控制
+import './permission.ts'
+
+// axios
+import Axios from 'axios'
+Vue.prototype.$Axios = Axios
 Vue.config.productionTip = false
-
+Vue.prototype.$tips = Tips
 new Vue({
   router,
   store,

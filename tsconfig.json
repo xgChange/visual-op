@@ -12,8 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "types": [
-      "webpack-env"
+      "webpack-env",
     ],
     "paths": {
       "@/*": [
@@ -33,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/layout/components/sider/menu.ts", "src/subpage/plugin/index.ts"  ],
   "exclude": [
     "node_modules"
   ]

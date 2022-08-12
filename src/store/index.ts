@@ -1,11 +1,15 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { MyUserState } from './modules/user'
+import { MyPermission } from './modules/permission'
+import { MyTemplate } from './modules/template'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
-});
+interface MyRootState {
+  user: MyUserState
+  permission: MyPermission
+  template: MyTemplate
+}
+
+export default new Vuex.Store<MyRootState>({})

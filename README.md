@@ -1,4 +1,6 @@
-# vue-ts-manangerment
+# 这是一个vue和ts编写的可视化操作系统
+
+## 测试一下mac的git
 
 ## Project setup
 ```
@@ -14,11 +16,3 @@ yarn serve
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
